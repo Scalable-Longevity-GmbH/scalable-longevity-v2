@@ -10,7 +10,8 @@ export default function ClientLayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const hideLayout = pathname.startsWith("/survey");
+  const hideLayout =
+    pathname.startsWith("/survey") || pathname.startsWith("/auth");
 
   return (
     <>
