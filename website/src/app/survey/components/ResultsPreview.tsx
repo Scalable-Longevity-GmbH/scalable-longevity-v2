@@ -1,9 +1,10 @@
 // components/survey/ResultsPreview.tsx
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Card from "../../survey/components/Card";
 import HoverCard from "../../survey/components/HoverCard";
-import { Info, Download } from "lucide-react";
+import { Info, Download, Mail, Check } from "lucide-react";
 import type { ScoreResult, FormState } from "@/lib/surveyTypes";
 import { useRouter } from "next/navigation";
 import { generateSurveyPDF } from "@/lib/generatePDF";
@@ -12,15 +13,41 @@ export default function ResultsPreview({
   preview,
   chronoAge,
   form,
+  onSave,
 }: {
   preview: ScoreResult;
   chronoAge: number;
   form: FormState;
+  onSave?: (email?: string) => Promise<void>;
 }) {
   const bioAge = chronoAge + preview.totalDelta;
-  const delta = preview.totalDelta; // + = älter, - = jünger
+  const delta = preview.totalDelta;
   const absDelta = Math.abs(delta);
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [emailSaved, setEmailSaved] = useState(false);
+  const autoSaved = useRef(false);
+
+  useEffect(() => {
+    if (!onSave || autoSaved.current) return;
+    if (form.share_data !== true) return;
+
+    const timer = setTimeout(() => {
+      if (!autoSaved.current) {
+        autoSaved.current = true;
+        onSave();
+      }
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [onSave, form.share_data]);
+
+  const handleSaveEmail = async () => {
+    if (!email.trim() || !onSave) return;
+    autoSaved.current = true;
+    await onSave(email.trim());
+    setEmailSaved(true);
+  };
 
   // ---- Gauge (halbkreis) ----
   // map delta in [-20,+20] Jahren auf [0..1] (rechts..links)
@@ -187,9 +214,48 @@ export default function ResultsPreview({
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 mt-4">
+            {/* Optional email to link results to app account */}
+            <div className="rounded-2xl border border-card-border bg-background p-4">
+              <p className="text-sm text-font-secondary mb-3">
+                E-Mail eingeben, um dein Ergebnis später mit deinem Konto zu
+                verknüpfen.
+              </p>
+              {emailSaved ? (
+                <div className="flex items-center gap-2 text-sm text-primary">
+                  <Check className="w-4 h-4" />
+                  <span>Gespeichert</span>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-font-secondary" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="deine@email.de"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-full bg-card border border-card-border text-sm text-font-primary placeholder:text-font-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSaveEmail}
+                    disabled={!email.trim()}
+                    className="px-4 py-2.5 rounded-full bg-primary text-white text-sm font-medium disabled:opacity-40 hover:opacity-95 transition cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    Speichern
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-4">
               <button
                 onClick={async () => {
+                  if (!autoSaved.current && onSave) {
+                    autoSaved.current = true;
+                    await onSave(email.trim() || undefined);
+                  }
                   await generateSurveyPDF(form, preview, chronoAge);
                 }}
                 className="flex items-center justify-center gap-3 py-4 px-6 rounded-full bg-primary text-white hover:opacity-95 transition cursor-pointer font-medium text-base"
@@ -199,8 +265,11 @@ export default function ResultsPreview({
               </button>
 
               <button
-                onClick={() => {
-                  // Navigate to get-started page
+                onClick={async () => {
+                  if (!autoSaved.current && onSave) {
+                    autoSaved.current = true;
+                    await onSave(email.trim() || undefined);
+                  }
                   router.push("/get-started");
                 }}
                 className="flex items-center justify-center gap-3 py-4 px-6 rounded-full bg-black/20 text-white hover:bg-black/30 transition cursor-pointer font-medium text-base"

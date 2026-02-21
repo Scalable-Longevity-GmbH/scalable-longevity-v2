@@ -1,7 +1,7 @@
 // app/survey/page.tsx
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { scoreSurvey } from "@/lib/score";
@@ -35,7 +35,9 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import SurveyEntryTracker from "../survey/components/SurveyEntryTracker";
 
-// Helper to assert required (strip "" at submit time)
+const EDGE_FN_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/score-survey`;
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 const req = <T,>(v: T | ""): T => v as T;
 
 type ScoreInput = {
@@ -66,7 +68,8 @@ type ScoreInput = {
 export default function SurveyPage() {
   const [step, setStep] = useState(0);
   const [preview, setPreview] = useState<ScoreResult | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const pendingPayloadRef = useRef<Record<string, unknown> | null>(null);
+  const savedRef = useRef(false);
 
   const [form, setForm] = useState<FormState>({
     age: "",
@@ -147,8 +150,32 @@ export default function SurveyPage() {
     });
   }
 
-  async function submit() {
-    if (isSubmitting) return;
+  const saveSurvey = useCallback(async (email?: string) => {
+    if (savedRef.current || !pendingPayloadRef.current) return;
+    savedRef.current = true;
+
+    const payload = pendingPayloadRef.current;
+    const body = { ...payload, email: email || null };
+
+    try {
+      const res = await fetch(EDGE_FN_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ANON_KEY}`,
+        },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        console.error("Survey save failed:", json);
+      }
+    } catch (err) {
+      console.error("Error sending survey to edge function:", err);
+    }
+  }, []);
+
+  function submit() {
 
     const payload: ScoreInput = {
       age: Number(form.age),
@@ -179,49 +206,21 @@ export default function SurveyPage() {
     const result = scoreSurvey(payload);
     setPreview(result);
 
-    // derived values for optional storage
-    const chronoAgeNum = Number(form.age);
-    const biologicalAge = chronoAgeNum + result.totalDelta;
-    const paceOfAging = result.totalDelta;
+    const fixedPayload = {
+      ...payload,
+      family_mi_stroke_onset:
+        form.family_mi_stroke === "yes" && form.family_mi_stroke_onset !== ""
+          ? form.family_mi_stroke_onset
+          : null,
+      hba1c:
+        form.diabetes_dx === "no" && form.hba1c !== ""
+          ? Number(form.hba1c)
+          : null,
+      share_data: form.share_data ?? true,
+    };
 
-    // only send if user agreed
-    if (!form.share_data) return;
-
-    setIsSubmitting(true);
-    try {
-      const fixedPayload = {
-        ...payload,
-
-        family_mi_stroke_onset:
-          form.family_mi_stroke === "yes" && form.family_mi_stroke_onset !== ""
-            ? form.family_mi_stroke_onset
-            : null,
-
-        hba1c:
-          form.diabetes_dx === "yes" && form.hba1c !== ""
-            ? Number(form.hba1c)
-            : null,
-
-        share_data: form.share_data ?? true,
-        biological_age: biologicalAge,
-        pace_of_aging: paceOfAging,
-      };
-
-      const res = await fetch("/api/survey", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fixedPayload),
-      });
-
-      if (!res.ok) {
-        const json = await res.json().catch(() => ({}));
-        console.error("Survey insert failed:", json);
-      }
-    } catch (err) {
-      console.error("Error sending survey to backend:", err);
-    } finally {
-      setIsSubmitting(false);
-    }
+    pendingPayloadRef.current = fixedPayload;
+    savedRef.current = false;
   }
 
   function handleNext() {
@@ -229,7 +228,7 @@ export default function SurveyPage() {
     if (!canContinue()) return;
 
     if (isLastStep) {
-      void submit();
+      submit();
     } else {
       next();
     }
@@ -353,15 +352,15 @@ export default function SurveyPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={!canContinue() || isSubmitting}
+                disabled={!canContinue()}
                 className={[
                   "py-3 px-8 rounded-full transition",
-                  !canContinue() || isSubmitting
+                  !canContinue()
                     ? "bg-primary/50 text-white cursor-not-allowed"
                     : "bg-primary text-white hover:opacity-95 cursor-pointer",
                 ].join(" ")}
               >
-                {isLastStep ? (isSubmitting ? "…" : "Fertig") : "Weiter"}
+                {isLastStep ? "Fertig" : "Weiter"}
               </button>
             </div>
           )}
@@ -375,6 +374,7 @@ export default function SurveyPage() {
             preview={preview}
             chronoAge={Number(form.age)}
             form={form}
+            onSave={saveSurvey}
           />
         </div>
       )}
