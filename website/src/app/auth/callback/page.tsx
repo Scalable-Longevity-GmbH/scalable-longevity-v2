@@ -11,23 +11,24 @@ export default function AuthCallbackPage() {
 
   useEffect(() => {
     const hash = window.location.hash;
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
 
-    if (!hash || hash.length < 2) {
+    if ((!hash || hash.length < 2) && !code) {
       setState("error");
       return;
     }
 
-    const fragment = hash.substring(1);
-
-    const params = new URLSearchParams(window.location.search);
     const scheme = params.get("scheme");
     const host = params.get("host");
+    const callbackPayload =
+      hash && hash.length >= 2 ? hash : `?${new URLSearchParams({ code: code ?? "" })}`;
 
     let link: string;
     if (scheme === "exp" && host) {
-      link = `exp://${host}/--/auth/callback#${fragment}`;
+      link = `exp://${host}/--/auth/callback${callbackPayload}`;
     } else {
-      link = `agepilot://auth/callback#${fragment}`;
+      link = `agepilot://auth/callback${callbackPayload}`;
     }
 
     setDeepLink(link);
