@@ -1,0 +1,325 @@
+{
+  "Metadata": {
+    "title": "AgePilot - More healthy years of life",
+    "description": "Simply live healthier, day by day.",
+    "keywords": "Longevity, Health, Biological age, Survey, Lifestyle improvement",
+    "ogTitle": "AgePilot - More healthy years of life",
+    "ogDescription": "Your path to more healthy years of life. Simple. Clear. Science-based.",
+    "ogAlt": "AgePilot - More healthy years of life",
+    "twitterDescription": "Simple changes for long-term wellbeing."
+  },
+  "Nav": {
+    "principles": "Your foundations",
+    "howItWorks": "How to start",
+    "fiveParts": "Health areas",
+    "bookInfo": "Learn more",
+    "startTest": "Start test",
+    "mainAria": "Main navigation"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "de": "DE",
+    "en": "EN"
+  },
+  "Hero": {
+    "title": "You decide how old your body really is",
+    "lead": "Find out how to gain healthy years of life every day",
+    "cta": "Start with longevity"
+  },
+  "Principles": {
+    "title": "Three pillars, one goal:",
+    "titleLine2": "Your longer, healthier life",
+    "lead": "Scalable Longevity combines knowledge, analysis, and lasting habits — for measurable progress.",
+    "items": {
+      "insightHub": {
+        "title": "Insight Hub",
+        "text": "Understand your health data and pack in the knowledge that moves you forward."
+      },
+      "lifePathAnalyzer": {
+        "title": "Life Path Analyzer",
+        "text": "Analyze your path, spot what strengthens you, and focus on what truly works."
+      },
+      "habitEngine": {
+        "title": "Habit Engine",
+        "text": "Stay on track — with habits that carry you and strengthen your healthspan long term."
+      }
+    }
+  },
+  "CTA": {
+    "eyebrow": "Your journey",
+    "title": "How do you get started?",
+    "cta": "Start the test now",
+    "steps": {
+      "1": {
+        "title": "Complete the self-test",
+        "text": "You fill out a short self-test to analyze your current areas of action."
+      },
+      "2": {
+        "title": "Your results are analyzed",
+        "text": "Your data is evaluated by our algorithm to show which effects you can expect from new interventions in your focus areas."
+      },
+      "3": {
+        "title": "Start and lock in new habits",
+        "text": "Now that you have the perfect roadmap, our system helps you stick with the new habits that will change your life!"
+      }
+    }
+  },
+  "FiveParts": {
+    "title": "Five areas of action",
+    "titleLine2": "that sustainably change your life",
+    "lead": "From nutrition to recovery — we help you live in balance and reach your longevity goals.",
+    "items": {
+      "wissen": {
+        "title": "Prevention",
+        "text": "Understand which measures lower your biological age and secure your health long term."
+      },
+      "bewegung": {
+        "title": "Movement",
+        "text": "Improve strength, mobility, and energy with personalized movement routines."
+      },
+      "ernaehrung": {
+        "title": "Nutrition",
+        "text": "Discover nutrition strategies that slow cellular aging and boost vitality."
+      },
+      "schlaf": {
+        "title": "Recovery & stress balance",
+        "text": "Optimize sleep and regeneration for more focus and inner strength."
+      },
+      "mindset": {
+        "title": "Purpose & social connection",
+        "text": "Stronger connections, more joy — aging socially healthy."
+      }
+    }
+  },
+  "SurveyCTA": {
+    "title": "Test your biological age — free and science-based",
+    "lead": "Find out how young your body really is — and how to optimize your healthspan step by step. Your data stays private — your progress belongs only to you.",
+    "youGet": "You get:",
+    "free": {
+      "badge": "Self-test (free)",
+      "priceNote": "one-time",
+      "featureIncluded": "Self-test of your biological age",
+      "featuresExcluded": [
+        "Repeated tests & progress tracking",
+        "Life Path Analyzer access",
+        "Habit Engine & daily routines",
+        "Access to the Fact Sheet library"
+      ],
+      "cta": "Test biological age now",
+      "note": "The self-test is not a subscription."
+    },
+    "paid": {
+      "badge": "Monthly",
+      "priceNote": "/month",
+      "features": [
+        "Self-test of your biological age",
+        "Repeated tests & progress tracking",
+        "Life Path Analyzer access",
+        "Habit Engine & daily routines",
+        "Access to the Fact Sheet library"
+      ],
+      "cta": "Subscribe now",
+      "note": "Cancel anytime monthly"
+    }
+  },
+  "Newsletter": {
+    "title": "Stay on track — with longevity tips & healthspan inspiration",
+    "lead": "Subscribe to our newsletter and regularly receive science-based content, motivation, and practical knowledge.",
+    "placeholder": "Your email address",
+    "ariaLabel": "Email address",
+    "submit": "Get tips",
+    "submitting": "Sending...",
+    "errors": {
+      "empty": "Please enter an email address.",
+      "exists": "This email address is already subscribed.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "success": "Thank you! You'll now receive our tips regularly."
+  },
+  "BookInfo": {
+    "title": "Deepen your knowledge",
+    "lead": "Our book gives you science-based insights into longevity. Learn more about the principles of a healthier, longer life and how to integrate them into your everyday routine.",
+    "sourcesTitle": "Literature & sources",
+    "sourcesLead": "Download the full literature list with all scientific sources and studies cited in our book.",
+    "download": "Download literature PDF",
+    "downloadAria": "Download literature PDF",
+    "bookAlt": "Book cover"
+  },
+  "Footer": {
+    "contact": "Contact",
+    "phone": "Phone",
+    "company": "Company",
+    "about": "About us",
+    "privacy": "Privacy",
+    "disclaimer": "Disclaimer",
+    "impressum": "Imprint",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "CookieBanner": {
+    "text": "We use cookies to improve our website and give you a better experience. More info in our",
+    "privacyLink": "Privacy Policy",
+    "necessary": "Necessary only",
+    "acceptAll": "Accept all"
+  },
+  "About": {
+    "title": "More years of life",
+    "lead": "Simply live healthier, day by day.",
+    "whyTitle": "Why us?",
+    "whyItems": [
+      "No pills or supplements — just better everyday decisions.",
+      "Easy to set up and use — whether you're just starting or looking for new ways to improve.",
+      "Science-based, built for your daily life — no complicated routines or special equipment."
+    ],
+    "forYouTitle": "For you",
+    "forYouText": "Working on improving your health? We make getting started and sticking with it simple. Our goal is for you to feel empowered, supported, and confident building the habits that really count.",
+    "nextStepTitle": "Your next step",
+    "nextStepText": "Start today with a small change — and watch your daily decisions add up to a healthier, longer life. We're here to guide you, encourage you, and celebrate every step forward.",
+    "missionTitle": "Our mission",
+    "missionText": "We want to help you live longer and healthier — starting with the habits you build every day. Our app is designed to make healthy living simple and clear, so you know exactly which steps to take to feel better and keep progressing without overwhelm."
+  },
+  "Contact": {
+    "title": "Contact",
+    "lead": "Have questions or feedback? We'd love to hear from you.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "message": "Message",
+    "messagePlaceholder": "How can we help?",
+    "submit": "Send message",
+    "preferEmail": "Prefer email?"
+  },
+  "GetStarted": {
+    "title": "Be one of the first — secure access to the beta app",
+    "lead": "Our app is still in development. Sign up now to get updates and exclusive access to the first beta version.",
+    "placeholder": "Your email address",
+    "ariaLabel": "Email address",
+    "cta": "Notify me",
+    "disclaimer": "We'll only contact you with relevant updates — no spam."
+  },
+  "Legal": {
+    "germanOnlyNote": "This document is provided in German (the legally binding version)."
+  },
+  "Survey": {
+    "backHome": "Back to home",
+    "backHomeAria": "Go to homepage",
+    "title": "Self-test",
+    "subtitle": "Find out what really helps optimize your healthspan",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "dataSharing": {
+      "title": "Help us make the Life Path Analyzer even better...",
+      "hint": "The self-test works with either choice",
+      "dontShare": "Don't share",
+      "share": "Share",
+      "footer": "Your answers help make future recommendations more precise and useful",
+      "start": "Start test"
+    },
+    "profile": {
+      "title": "Your biological profile",
+      "female": "Female",
+      "male": "Male",
+      "age": "Age",
+      "ageUnit": "years",
+      "height": "Height",
+      "weight": "Weight",
+      "waist": "Waist circumference",
+      "bmi": "BMI"
+    },
+    "activity": {
+      "title": "Activity",
+      "dailyMovement": "Daily movement > 30 min.",
+      "sport": "Sport > 30 min.",
+      "hint": "Quick tip: Even small routines make a difference.",
+      "freq0": "0/wk",
+      "freq12": "1-2/wk",
+      "freq34": "3-4/wk",
+      "freq57": "5-7/wk"
+    },
+    "cardio": {
+      "title": "Cardiovascular",
+      "personalHistory": "Personal history: heart attack / stroke",
+      "familyHistory": "Family history: heart attack / stroke",
+      "onset": "Age of onset (youngest family member)",
+      "yes": "Yes",
+      "no": "No",
+      "unknown": "Unknown",
+      "systolic": "Systolic blood pressure",
+      "systolicPlaceholder": "e.g. 120",
+      "bpUnit": "mmHg",
+      "hint": "Blood pressure and family risk are key drivers of heart health.",
+      "onset55": "<55",
+      "onset5564": "55–64",
+      "onset65": "≥65"
+    },
+    "lifestyleMindset": {
+      "title": "Stress & habits",
+      "stress": "How high is your current stress level?",
+      "stressLow": "Low",
+      "stressMedium": "Medium",
+      "stressHigh": "High",
+      "smoking": "Do you currently smoke?",
+      "never": "Never",
+      "former": "Former",
+      "hint": "Stress and smoking directly affect heart, metabolism, and sleep."
+    },
+    "lifestyleNutrition": {
+      "title": "Nutrition",
+      "fastfood": "Fast food — how often per week?",
+      "fruitsVeg": "Fruits & vegetables — servings per day",
+      "fish": "Fish — per week",
+      "never": "Never",
+      "hint": "Nutrition affects inflammation, blood sugar, and lipids — and thus your life path.",
+      "freq5plus": "5+/wk",
+      "serv01": "0-1/day",
+      "serv23": "2-3/day",
+      "serv45": "4-5/day",
+      "serv6plus": "6+/day",
+      "fish0": "0/wk",
+      "fish1": "1/wk",
+      "fish2": "2/wk",
+      "fish3plus": "3+/wk"
+    },
+    "metabolicDiabetes": {
+      "title": "Metabolism",
+      "diabetes": "Diabetes diagnosis",
+      "yes": "Yes",
+      "no": "No",
+      "hba1c": "HbA1c",
+      "hba1cWhat": "What is HbA1c?",
+      "hba1cExplain": "HbA1c measures your average blood sugar over the last 2–3 months.",
+      "useDefaults": "Use default values",
+      "defaultsHint": "If you don't know the value, use defaults for a result — you can replace it later.",
+      "lipidsLabel": "LDL & HDL",
+      "lipidsHint": "If you don't know the values, use defaults — you can update them later.",
+      "hba1cPlaceholder": "e.g. 5.6",
+      "hint": "Don't want lab values? Defaults still give you a result."
+    },
+    "metabolicLipids": {
+      "title": "Blood lipids",
+      "useDefaults": "Use default values",
+      "defaultsHint": "If you don't know the values, use defaults for a result — you can replace them later.",
+      "hint": "LDL/HDL affect your cardiovascular risk — a strong lever for long-term healthspan."
+    },
+    "results": {
+      "bioAge": "Biological age",
+      "chronoAge": "Chronological age",
+      "years": "years",
+      "topStealers": "Your top 3 lifespan stealers",
+      "whyItMatters": "Why does this matter?",
+      "whyExplain": "This habit or factor increases your biological age in our model.",
+      "noStealers": "No negative factors found — strong!",
+      "nextSteps": "Next steps",
+      "nextStepsLead": "Download your results or start the LifePath Engine for personalized recommendations.",
+      "emailPrompt": "Enter your email to link your results to your account later.",
+      "emailPlaceholder": "you@email.com",
+      "save": "Save",
+      "saved": "Saved",
+      "downloadPdf": "Download PDF results",
+      "startEngine": "Start LifePath Engine",
+      "paceOfAging": "Pace of Aging"
+    }
+  }
+}

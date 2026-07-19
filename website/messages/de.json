@@ -1,0 +1,325 @@
+{
+  "Metadata": {
+    "title": "AgePilot - Mehr gesunde Lebenszeit",
+    "description": "Einfach gesünder Leben Tag für Tag.",
+    "keywords": "Longevity, Gesundheit, Biologisches Alter, Umfrage, Lebensstil verbessern",
+    "ogTitle": "AgePilot - Mehr gesunde Lebenszeit",
+    "ogDescription": "Dein Weg zu mehr gesunder Lebenszeit. Einfach. Verständlich. Wissenschaftlich fundiert.",
+    "ogAlt": "AgePilot - Mehr gesunde Lebenszeit",
+    "twitterDescription": "Simple Changes für langfristiges Wohlbefinden."
+  },
+  "Nav": {
+    "principles": "Deine Grundlagen",
+    "howItWorks": "Wie du startest",
+    "fiveParts": "Gesundheitsfelder",
+    "bookInfo": "Jetzt mehr Erfahren",
+    "startTest": "Test Starten",
+    "mainAria": "Hauptnavigation"
+  },
+  "LanguageSwitcher": {
+    "label": "Sprache",
+    "de": "DE",
+    "en": "EN"
+  },
+  "Hero": {
+    "title": "Du entscheidest, wie alt dein Körper wirklich ist",
+    "lead": "Finde heraus, wie du jeden Tag an gesunder Lebenszeit gewinnst",
+    "cta": "Starte mit Longevity"
+  },
+  "Principles": {
+    "title": "Drei Säulen ein Ziel:",
+    "titleLine2": "Dein längeres, gesünderes Leben",
+    "lead": "Scalable Longevity kombiniert Wissen, Analyse und nachhaltige Gewohnheiten - für messbare Fortschritte.",
+    "items": {
+      "insightHub": {
+        "title": "Insight Hub",
+        "text": "Verstehe deine Gesundheitsdaten und pack das Wissen ein, das dich weiterbringt."
+      },
+      "lifePathAnalyzer": {
+        "title": "Life Path Analyzer",
+        "text": "Analysiere deinen Weg, erkenne, was dich stärkt, und richte deinen Fokus auf das, was wirklich wirkt."
+      },
+      "habitEngine": {
+        "title": "Habit Engine",
+        "text": "Bleib auf deinem Weg - mit Gewohnheiten, die dich tragen und deine Healthspan langfristig stärken."
+      }
+    }
+  },
+  "CTA": {
+    "eyebrow": "Deine Reise",
+    "title": "Wie fängst du an?",
+    "cta": "Jetzt Test Starten",
+    "steps": {
+      "1": {
+        "title": "Selbsttest ausfüllen",
+        "text": "Du füllst einen kurzen Selbsttest aus, um deine aktuellen Handlungsfelder zu analysieren."
+      },
+      "2": {
+        "title": "Dein Ergebnis wird analysiert",
+        "text": "Deine gesammelten Daten werden von unserem Algorithmus ausgewertet, um herauszufinden, welche Effekte du mit neuen Interventionen in deinen Handlungsfeldern erwarten kannst."
+      },
+      "3": {
+        "title": "Starten und verfestigen neuer Gewohnheiten",
+        "text": "Jetzt, da du die perfekte Roadmap hast, hilft dir unser System dabei, die neuen Gewohnheiten beizubehalten, die dein Leben verändern werden!"
+      }
+    }
+  },
+  "FiveParts": {
+    "title": "Fünf Handlungsfelder,",
+    "titleLine2": "die dein Leben nachhaltig verändern",
+    "lead": "Von Ernährung bis Erholung - wir helfen dir, in Balance zu leben und deine Longevity-Ziele zu erreichen.",
+    "items": {
+      "wissen": {
+        "title": "Prävention",
+        "text": "Verstehe, welche Maßnahmen dein biologisches Alter senken und deine Gesundheit langfristig sichern."
+      },
+      "bewegung": {
+        "title": "Bewegung",
+        "text": "Verbessere Kraft, Mobilität und Energie mit personalisierten Bewegungsroutinen."
+      },
+      "ernaehrung": {
+        "title": "Ernährung",
+        "text": "Entdecke Ernährungsstrategien, die Zellalterung verlangsamen und Vitalität fördern."
+      },
+      "schlaf": {
+        "title": "Erholung & Stress-Balance",
+        "text": "Optimiere Schlaf und Regeneration für mehr Fokus und innere Stärke."
+      },
+      "mindset": {
+        "title": "Sinn & Soziale Interaktionen",
+        "text": "Stärkere Verbindungen, mehr Lebensfreude - sozial gesund altern."
+      }
+    }
+  },
+  "SurveyCTA": {
+    "title": "Teste dein biologisches Alter - kostenlos und wissenschaftlich fundiert",
+    "lead": "Finde heraus, wie jung dein Körper wirklich ist - und wie du deine Healthspan Schritt für Schritt optimieren kannst. Deine Daten bleiben privat - dein Fortschritt gehört nur dir.",
+    "youGet": "Du erhältst:",
+    "free": {
+      "badge": "Selbsttest (kostenlos)",
+      "priceNote": "einmalig",
+      "featureIncluded": "Selbsttest Deines Biologischen Alters",
+      "featuresExcluded": [
+        "Wiederholte Tests & Fortschrittsmessung",
+        "Life Path Analyzer Zugriff",
+        "Habit Engine & tägliche Routinen",
+        "Zugriff zur „Fact Sheet“-Bibliothek"
+      ],
+      "cta": "Jetzt biologisches Alter testen",
+      "note": "Der Selbsttest ist kein Abo."
+    },
+    "paid": {
+      "badge": "Monatlich",
+      "priceNote": "/Monat",
+      "features": [
+        "Selbsttest Deines Biologischen Alters",
+        "Wiederholte Tests & Fortschrittsmessung",
+        "Life Path Analyzer Zugriff",
+        "Habit Engine & tägliche Routinen",
+        "Zugriff zur „Fact Sheet“-Bibliothek"
+      ],
+      "cta": "Jetzt abonnieren",
+      "note": "Monatlich kündbar"
+    }
+  },
+  "Newsletter": {
+    "title": "Bleib auf deinem Weg - mit Longevity-Tipps & Healthspan-Inspiration",
+    "lead": "Abonniere unseren Newsletter und erhalte regelmäßig wissenschaftlich fundierte Inhalte, Motivation und Praxiswissen.",
+    "placeholder": "Ihre E-Mail-Adresse",
+    "ariaLabel": "E-Mail-Adresse",
+    "submit": "Tipps erhalten",
+    "submitting": "Wird gesendet...",
+    "errors": {
+      "empty": "Bitte geben Sie eine E-Mail-Adresse ein.",
+      "exists": "Diese E-Mail-Adresse ist bereits angemeldet.",
+      "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    },
+    "success": "Vielen Dank! Sie erhalten nun regelmäßig unsere Tipps."
+  },
+  "BookInfo": {
+    "title": "Vertiefe dein Wissen",
+    "lead": "Unser Buch bietet dir wissenschaftlich fundierte Einblicke in die Welt der Longevity. Erfahre mehr über die Prinzipien eines gesünderen, längeren Lebens und wie du diese in deinen Alltag integrieren kannst.",
+    "sourcesTitle": "Literatur & Quellen",
+    "sourcesLead": "Lade dir die vollständige Literaturliste mit allen wissenschaftlichen Quellen und Studien herunter, die in unserem Buch zitiert werden.",
+    "download": "Literatur PDF herunterladen",
+    "downloadAria": "Literatur PDF herunterladen",
+    "bookAlt": "Buchcover"
+  },
+  "Footer": {
+    "contact": "Kontakt",
+    "phone": "Telefon",
+    "company": "Unternehmen",
+    "about": "Über Uns",
+    "privacy": "Datenschutz",
+    "disclaimer": "Haftungsausschluss",
+    "impressum": "Impressum",
+    "follow": "Folgen Sie Uns",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "CookieBanner": {
+    "text": "Wir verwenden Cookies, um unsere Website zu verbessern und dir ein besseres Erlebnis zu bieten. Mehr Infos in unserer",
+    "privacyLink": "Datenschutzerklärung",
+    "necessary": "Nur notwendige",
+    "acceptAll": "Alle akzeptieren"
+  },
+  "About": {
+    "title": "Mehr Lebenszeit",
+    "lead": "Einfach gesünder Leben Tag für Tag.",
+    "whyTitle": "Warum wir?",
+    "whyItems": [
+      "Keine Pillen oder Nahrungsergänzungsmittel - nur bessere Alltagsentscheidungen.",
+      "Einfach einzurichten und zu nutzen - egal, ob du gerade erst beginnst oder nach neuen Wegen zur Verbesserung suchst.",
+      "Wissenschaftlich fundiert, gemacht für deinen Alltag - keine komplizierten Routinen oder spezielle Ausrüstung."
+    ],
+    "forYouTitle": "Für dich",
+    "forYouText": "Du arbeitest daran, deine Gesundheit zu verbessern? Wir machen den Einstieg und das Dranbleiben einfach. Unser Ziel ist, dass du dich befähigt, unterstützt und sicher fühlst, die Gewohnheiten aufzubauen, die wirklich zählen.",
+    "nextStepTitle": "Dein nächster Schritt",
+    "nextStepText": "Starte heute mit einer kleinen Veränderung - und sieh, wie sich deine täglichen Entscheidungen zu einem gesünderen, längeren Leben summieren. Wir sind da, um dich zu begleiten, zu ermutigen und jeden Schritt nach vorn zu feiern.",
+    "missionTitle": "Unsere Mission",
+    "missionText": "Wir wollen dir helfen, länger und gesünder zu leben - beginnend mit den Gewohnheiten, die du jeden Tag aufbaust. Unsere App ist darauf ausgelegt, gesundes Leben einfach und übersichtlich zu machen, damit du genau weißt, welche Schritte du gehen kannst, um dich besser zu fühlen und dich ohne Überforderung stetig weiterzuentwickeln."
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "lead": "Haben Sie Fragen oder Feedback? Wir würden uns freuen, von Ihnen zu hören.",
+    "name": "Name",
+    "namePlaceholder": "Ihr Name",
+    "email": "E-Mail",
+    "emailPlaceholder": "ihre@email.de",
+    "message": "Nachricht",
+    "messagePlaceholder": "Wie können wir helfen?",
+    "submit": "Nachricht Senden",
+    "preferEmail": "Bevorzugen Sie E-Mail?"
+  },
+  "GetStarted": {
+    "title": "Sei einer der Ersten - sichere dir Zugang zur Beta-App",
+    "lead": "Unsere App befindet sich noch in der Entwicklung. Trage dich jetzt ein und erhalte Updates sowie exklusiven Zugang zur ersten Beta-Version.",
+    "placeholder": "Ihre E-Mail-Adresse",
+    "ariaLabel": "E-Mail-Adresse",
+    "cta": "Benachrichtigen",
+    "disclaimer": "Wir melden uns nur mit relevanten Updates - kein Spam."
+  },
+  "Legal": {
+    "germanOnlyNote": "Dieses Dokument ist in deutscher Sprache verfasst (rechtlich verbindliche Fassung)."
+  },
+  "Survey": {
+    "backHome": "Zurück zur Startseite",
+    "backHomeAria": "Zur Startseite",
+    "title": "Selbsttest",
+    "subtitle": "Finde heraus was wirklich hilft deine Healthspan zu optimieren",
+    "back": "Zurück",
+    "next": "Weiter",
+    "done": "Fertig",
+    "dataSharing": {
+      "title": "Hilf uns den Lifepath Analyzer noch besser zu machen...",
+      "hint": "Der Selbsttest ist mit beiden Auswahlen möglich",
+      "dontShare": "Nicht Teilen",
+      "share": "Teilen",
+      "footer": "Deine Antworten helfen zukünftige Empfehlungen noch genauer und hilfreicher zu machen",
+      "start": "Test Starten"
+    },
+    "profile": {
+      "title": "Dein Biologisches Profil",
+      "female": "Weiblich",
+      "male": "Männlich",
+      "age": "Alter",
+      "ageUnit": "Jahre",
+      "height": "Größe",
+      "weight": "Gewicht",
+      "waist": "Taillenumfang",
+      "bmi": "BMI"
+    },
+    "activity": {
+      "title": "Aktivität",
+      "dailyMovement": "Tägliche Bewegung > 30 Min.",
+      "sport": "Sport > 30 Min.",
+      "hint": "Kurzer Hinweis: Schon kleine Routinen machen einen Unterschied.",
+      "freq0": "0/Wo.",
+      "freq12": "1-2/Wo.",
+      "freq34": "3-4/Wo.",
+      "freq57": "5-7/Wo."
+    },
+    "cardio": {
+      "title": "Herz-Kreislauf",
+      "personalHistory": "Eigene Vorgeschichte: Herzinfarkt / Schlaganfall",
+      "familyHistory": "Familienanamnese: Herzinfarkt / Schlaganfall",
+      "onset": "Erkrankungsalter (jüngstes Familienmitglied)",
+      "yes": "Ja",
+      "no": "Nein",
+      "unknown": "Unbekannt",
+      "systolic": "Systolischer Blutdruck",
+      "systolicPlaceholder": "z. B. 120",
+      "bpUnit": "mmHg",
+      "hint": "Blutdruck und familiäre Risiken sind zentrale Treiber der Herzgesundheit.",
+      "onset55": "<55",
+      "onset5564": "55–64",
+      "onset65": "≥65"
+    },
+    "lifestyleMindset": {
+      "title": "Stress & Gewohnheiten",
+      "stress": "Wie hoch empfindest du dein aktuelles Stressniveau?",
+      "stressLow": "Niedrig",
+      "stressMedium": "Mittel",
+      "stressHigh": "Hoch",
+      "smoking": "Rauchst du aktuell?",
+      "never": "Nie",
+      "former": "Früher",
+      "hint": "Stress & Rauchen haben einen direkten Einfluss auf Herz, Stoffwechsel und Schlaf."
+    },
+    "lifestyleNutrition": {
+      "title": "Ernährung",
+      "fastfood": "Fastfood - wie häufig pro Woche?",
+      "fruitsVeg": "Obst & Gemüse - Portionen pro Tag",
+      "fish": "Fisch - pro Woche",
+      "never": "Nie",
+      "hint": "Ernährung beeinflusst Entzündung, Blutzucker und Lipide - und damit deinen Lifepath.",
+      "freq5plus": "5+/Wo.",
+      "serv01": "0-1/Tag",
+      "serv23": "2-3/Tag",
+      "serv45": "4-5/Tag",
+      "serv6plus": "6+/Tag",
+      "fish0": "0/Wo.",
+      "fish1": "1/Wo.",
+      "fish2": "2/Wo.",
+      "fish3plus": "3+/Wo."
+    },
+    "metabolicDiabetes": {
+      "title": "Stoffwechsel",
+      "diabetes": "Diabetes-Diagnose",
+      "yes": "Ja",
+      "no": "Nein",
+      "hba1c": "HbA1c",
+      "hba1cWhat": "Was ist HbA1c?",
+      "hba1cExplain": "HbA1c misst den durchschnittlichen Blutzucker der letzten 2-3 Monate.",
+      "useDefaults": "Standardwerte übernehmen",
+      "defaultsHint": "Wenn du den Wert nicht kennst, nutze Standardwerte für ein Ergebnis - du kannst ihn später ersetzen.",
+      "lipidsLabel": "LDL & HDL",
+      "lipidsHint": "Wenn du die Werte nicht kennst, nutze Standardwerte - du kannst sie später aktualisieren.",
+      "hba1cPlaceholder": "z. B. 5.6",
+      "hint": "Keine Lust auf Laborwerte? Standardwerte liefern dir trotzdem ein Ergebnis."
+    },
+    "metabolicLipids": {
+      "title": "Blutfette",
+      "useDefaults": "Standardwerte übernehmen",
+      "defaultsHint": "Wenn du die Werte nicht kennst, nutze Standardwerte für ein Ergebnis - du kannst sie später ersetzen.",
+      "hint": "LDL/HDL beeinflussen dein Herz-Kreislauf-Risiko - ein guter Hebel für langfristige Healthspan."
+    },
+    "results": {
+      "bioAge": "Biologisches Alter",
+      "chronoAge": "Chronologisches Alter",
+      "years": "Jahre",
+      "topStealers": "Deine Top 3 Lebenszeit-Räuber",
+      "whyItMatters": "Warum zählt das?",
+      "whyExplain": "Diese Gewohnheit bzw. dieser Faktor erhöht dein biologisches Alter in unserem Modell.",
+      "noStealers": "Keine negativen Faktoren gefunden - stark!",
+      "nextSteps": "Nächste Schritte",
+      "nextStepsLead": "Lade deine Ergebnisse herunter oder starte den LifePath Engine für personalisierte Empfehlungen.",
+      "emailPrompt": "E-Mail eingeben, um dein Ergebnis später mit deinem Konto zu verknüpfen.",
+      "emailPlaceholder": "deine@email.de",
+      "save": "Speichern",
+      "saved": "Gespeichert",
+      "downloadPdf": "PDF Ergebnisse herunterladen",
+      "startEngine": "Start LifePath Engine",
+      "paceOfAging": "Pace of Aging"
+    }
+  }
+}

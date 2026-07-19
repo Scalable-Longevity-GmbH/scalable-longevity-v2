@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import HeaderNav from "./ui/HeaderNav";
 import Footer from "./ui/Footer";
 

@@ -1,48 +1,54 @@
-import React from "react";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="bg-black/80 px-6 py-12">
       <div className="mx-auto max-w-6xl flex flex-col gap-12">
-        {/* Links */}
         <div className="grid grid-cols-1 gap-8 text-sm text-font-secondary sm:grid-cols-3">
           <div>
-            <h4 className="mb-2 font-semibold text-white">Kontakt</h4>
+            <h4 className="mb-2 font-semibold text-white">{t("contact")}</h4>
             <p>Knowledge House GmbH</p>
             <p>Breite Str. 22</p>
             <p>40213 Düsseldorf</p>
             <p>Germany</p>
-            <p>Telefon: +49 201 1540 7473 22</p>
+            <p>
+              {t("phone")}: +49 201 1540 7473 22
+            </p>
           </div>
 
           <div>
-            <h4 className="mb-2 font-semibold text-white">Unternehmen</h4>
+            <h4 className="mb-2 font-semibold text-white">{t("company")}</h4>
             <ul className="space-y-1">
               <li>
-                <a href="/about" className="hover:underline">
-                  Über Uns
-                </a>
+                <Link href="/about" className="hover:underline">
+                  {t("about")}
+                </Link>
               </li>
               <li>
-                <a href="/legal/privacy" className="hover:underline">
-                  Datenschutz
-                </a>
+                <Link href="/legal/privacy" className="hover:underline">
+                  {t("privacy")}
+                </Link>
               </li>
               <li>
-                <a href="/legal/disclaimer" className="hover:underline">
-                  Haftungsausschluss
-                </a>
+                <Link href="/legal/disclaimer" className="hover:underline">
+                  {t("disclaimer")}
+                </Link>
               </li>
               <li>
-                <a href="/legal/impressum" className="hover:underline">
-                  Impressum
-                </a>
+                <Link href="/legal/impressum" className="hover:underline">
+                  {t("impressum")}
+                </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="mb-2 font-semibold text-white">Folgen Sie Uns</h4>
+            <h4 className="mb-2 font-semibold text-white">{t("follow")}</h4>
             <ul className="space-y-1">
               <li>
                 <a href="https://twitter.com" className="hover:underline">
@@ -66,10 +72,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom note */}
         <div className="border-t border-card-border pt-6 text-center text-xs text-font-secondary">
-          © {new Date().getFullYear()} Scalably-Longevity. Alle Rechte
-          vorbehalten.
+          © {new Date().getFullYear()} Scalably-Longevity. {t("rights")}
         </div>
       </div>
     </footer>
