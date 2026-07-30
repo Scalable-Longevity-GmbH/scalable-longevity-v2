@@ -1,654 +1,445 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { Fragment } from "react";
+import { useLocale } from "next-intl";
 
-export default function DatenbestimmungenPage() {
+type Block =
+  | { kind: "p" | "h2" | "h3"; text: string }
+  | { kind: "ul"; items: string[] };
+
+const content: Record<"en" | "de", { title: string; blocks: Block[] }> = {
+  en: {
+    title: `Privacy Policy`,
+    blocks: [
+  { kind: "p", text: `AgePilot | Last updated: July 2026` },
+  { kind: "h2", text: `1. General Information` },
+  { kind: "p", text: `Protecting your personal data is important to us. This Privacy Policy explains which personal data we process when you use our website and AgePilot applications, the purposes for which we process it, and the rights available to you.` },
+  { kind: "p", text: `AgePilot helps you reflect on your lifestyle habits and integrate health-promoting decisions into your daily life. Its features may include, in particular, a health-related self-assessment, algorithmic evaluations, information on different health and lifestyle areas, progress tracking, and functions designed to support the development of new habits.` },
+  { kind: "p", text: `AgePilot does not provide medical diagnoses or individualized medical treatment recommendations and does not replace medical advice or examination.` },
+  { kind: "h2", text: `2. Controller` },
+  { kind: "p", text: `The controller responsible for the processing of personal data is:` },
+  { kind: "p", text: `THE KNOWLEDGE HOUSE GmbH
+Breite Straße 22
+40213 Düsseldorf
+Germany` },
+  { kind: "p", text: `Commercial Register: HRB 32589
+Register Court: Local Court of Wuppertal` },
+  { kind: "p", text: `Represented by its Managing Director:
+Prof. Dr. med. Hubert Trübel` },
+  { kind: "p", text: `Email: info@knowledge-house.com` },
+  { kind: "h2", text: `3. Data We Process` },
+  { kind: "p", text: `Depending on the functions you use, we may process the following categories of personal data in particular:` },
+  { kind: "h3", text: `3.1 Contact and Communication Data` },
+  { kind: "ul", items: [
+      `your email address`,
+      `your name, if you provide it voluntarily`,
+      `the content of your messages to us`,
+      `information provided in connection with contact or support requests`
+    ] },
+  { kind: "h3", text: `3.2 Health and Lifestyle Data` },
+  { kind: "p", text: `If you use the AgePilot self-assessment or comparable functions, your answers may allow conclusions to be drawn about your health and lifestyle. This may include information relating to:` },
+  { kind: "ul", items: [
+      `age and general physical characteristics`,
+      `exercise and physical activity`,
+      `nutrition`,
+      `sleep and recovery`,
+      `stress and psychological well-being`,
+      `social relationships and life satisfaction`,
+      `preventive health behavior`,
+      `health-related habits`,
+      `personal goals and interests`,
+      `other information you provide in the self-assessment`
+    ] },
+  { kind: "p", text: `Where such information concerns your physical or mental health or allows corresponding conclusions to be drawn, it constitutes health data and therefore a special category of personal data within the meaning of Article 9(1) GDPR.` },
+  { kind: "h3", text: `3.3 Results and Usage Data` },
+  { kind: "ul", items: [
+      `results of the self-assessment`,
+      `algorithmically generated evaluations`,
+      `calculated metrics and assessments`,
+      `identified areas for action`,
+      `selected goals and habits`,
+      `recorded activities and progress`,
+      `times and frequency of use`,
+      `content accessed and functions used`
+    ] },
+  { kind: "h3", text: `3.4 Technical Data` },
+  { kind: "p", text: `When you use our website and applications, technically necessary data may be processed, including:` },
+  { kind: "ul", items: [
+      `IP address`,
+      `date and time of access`,
+      `browser type and browser version`,
+      `operating system`,
+      `device information`,
+      `pages and functions accessed`,
+      `referrer URL`,
+      `technical error and crash information`,
+      `server log data`
+    ] },
+  { kind: "p", text: `As a rule, these data are collected when you use our website or application, rather than solely when an application is installed.` },
+  { kind: "h2", text: `4. Purposes and Legal Bases of Processing` },
+  { kind: "h3", text: `4.1 Provision of the Website and Technical Security` },
+  { kind: "p", text: `We process technical data to provide our website and applications, display content correctly on your device, ensure the stability and security of our systems, identify and resolve technical errors, and prevent misuse and unauthorized access.` },
+  { kind: "p", text: `The legal basis is Article 6(1)(f) GDPR. Our legitimate interest lies in providing our services securely, reliably, and effectively.` },
+  { kind: "h3", text: `4.2 Conducting the Self-Assessment and Creating Your Evaluation` },
+  { kind: "p", text: `We process your answers to conduct the self-assessment, evaluate your information algorithmically, display your results and relevant areas for action, illustrate possible effects of health-promoting behavioral changes, provide general information based on your inputs, and show changes and progress when you use the service repeatedly.` },
+  { kind: "p", text: `Where health data are processed, this processing takes place only on the basis of your explicit consent pursuant to Article 6(1)(a) and Article 9(2)(a) GDPR.` },
+  { kind: "p", text: `Your consent is voluntary and may be withdrawn at any time with effect for the future.` },
+  { kind: "h3", text: `4.3 Life Path Analyzer, Progress Tracking, and Habit Engine` },
+  { kind: "p", text: `If you use these functions, we process your information and previous results to display health-related areas for action, illustrate possible long-term effects of different behaviors, track your progress over a defined period, support you in selecting and implementing health-promoting habits, and provide suitable general content and guidance within the application.` },
+  { kind: "p", text: `Where health data are involved, processing is based on your explicit consent pursuant to Article 6(1)(a) and Article 9(2)(a) GDPR.` },
+  { kind: "p", text: `The results and guidance provided are general, automatically generated information. They do not constitute a medical diagnosis or individualized medical recommendation.` },
+  { kind: "h3", text: `4.4 Contacting Us` },
+  { kind: "p", text: `If you contact us by email, contact form, or another channel, we process your information in order to handle your request. The legal basis is Article 6(1)(b) GDPR where your request relates to the preparation or performance of a contractual relationship, and Article 6(1)(f) GDPR for other inquiries. Our legitimate interest lies in properly handling and documenting inquiries.` },
+  { kind: "h3", text: `4.5 Newsletter` },
+  { kind: "p", text: `If you subscribe to our newsletter, we process your email address in order to send you information about AgePilot, longevity, healthspan, health-related habits, and our services.` },
+  { kind: "p", text: `Registration takes place through a double opt-in process. After registering, you will receive an email asking you to confirm your subscription. The time of registration and confirmation and your IP address may be stored in order to document your consent.` },
+  { kind: "p", text: `The legal basis for sending the newsletter is your consent pursuant to Article 6(1)(a) GDPR in conjunction with Section 7(2) No. 3 of the German Unfair Competition Act (UWG). You may withdraw your consent at any time with effect for the future, in particular by using the unsubscribe link at the end of each newsletter.` },
+  { kind: "h2", text: `5. Voluntary Use of Data to Improve AgePilot` },
+  { kind: "p", text: `Before starting the self-assessment, you can decide whether your answers may also be used to improve AgePilot. Selecting “Do not share” does not prevent you from using the self-assessment and receiving its immediate evaluation.` },
+  { kind: "h3", text: `5.1 “Do Not Share” Option` },
+  { kind: "p", text: `If you select “Do not share,” we use your information solely to conduct the self-assessment, create and display your personal evaluation, provide the AgePilot functions you use, and ensure technically necessary storage and security.` },
+  { kind: "p", text: `In this case, your information will not additionally be used for scientific evaluation or for the general improvement of our content models and recommendations.` },
+  { kind: "h3", text: `5.2 “Share” Option` },
+  { kind: "p", text: `If you select “Share,” your information may additionally be used to examine the quality and informative value of our evaluations, test and further develop the underlying models and algorithms, investigate general relationships between lifestyle habits and the results displayed within AgePilot, improve the usability and relevance of our content, and conduct scientific or statistical evaluations.` },
+  { kind: "p", text: `This additional processing takes place only on the basis of separate, voluntary consent pursuant to Article 6(1)(a) GDPR and, where health data are involved, Article 9(2)(a) GDPR. Consent to this additional use of your data is not a requirement for using the self-assessment.` },
+  { kind: "p", text: `You may withdraw this consent at any time with effect for the future. Withdrawal does not affect the lawfulness of processing carried out before the withdrawal.` },
+  { kind: "h2", text: `6. Scientific and Statistical Evaluations` },
+  { kind: "p", text: `Where you have given explicit consent, your data may be processed for scientific or statistical purposes.` },
+  { kind: "p", text: `Wherever possible, we use the data in anonymized form. Anonymized data can no longer be linked to you and are generally no longer subject to the GDPR.` },
+  { kind: "p", text: `Where complete anonymization is not possible for the relevant purpose, data may be processed in pseudonymized form. In pseudonymization, directly identifying information is stored separately from the evaluation data. Pseudonymized data remain personal data and are protected accordingly.` },
+  { kind: "p", text: `Scientific or statistical results are published only in a form that does not permit conclusions to be drawn about individual persons.` },
+  { kind: "p", text: `Pseudonymized personal data are disclosed to research partners or other third parties only if you have expressly consented, another legal basis applies, or the receiving party acts for us as a contractually bound processor.` },
+  { kind: "h2", text: `7. Automated Evaluation` },
+  { kind: "p", text: `The results of the AgePilot self-assessment are generated wholly or partly by automated means on the basis of your inputs.` },
+  { kind: "p", text: `Your information may be assigned to specific health and lifestyle areas, weighted, and combined into a personal evaluation. The purpose of the evaluation is to show you general information, potential areas for action, and health-promoting habits.` },
+  { kind: "p", text: `The automated evaluation does not produce legal effects concerning you or similarly significantly affect you in a legal or economic sense within the meaning of Article 22 GDPR.` },
+  { kind: "p", text: `In particular, the results do not constitute a medical diagnosis, risk prognosis, or treatment recommendation.` },
+  { kind: "h2", text: `8. Cookies and Similar Technologies` },
+  { kind: "h3", text: `8.1 Technically Necessary Technologies` },
+  { kind: "p", text: `Technically necessary technologies may be used without your consent where they are required to provide the website, store your language or privacy settings, ensure website security, or provide functions that you have expressly requested.` },
+  { kind: "p", text: `The processing of personal data in this context is generally based on Article 6(1)(f) GDPR. Our legitimate interest lies in the secure and effective provision of our website.` },
+  { kind: "h3", text: `8.2 Analytics and Marketing Technologies` },
+  { kind: "p", text: `Analytics, statistics, and marketing technologies are used only after you have consented through our consent management system.` },
+  { kind: "p", text: `The legal basis is Article 6(1)(a) GDPR. Where information is stored on or accessed from your device, this takes place on the basis of your consent pursuant to Section 25(1) of the German Telecommunications Digital Services Data Protection Act (TDDDG).` },
+  { kind: "p", text: `You may change or withdraw your consent at any time with effect for the future through the website’s privacy settings.` },
+  { kind: "h2", text: `9. Recipients and Processors` },
+  { kind: "p", text: `We may use carefully selected service providers that process personal data on our behalf. These may include hosting and cloud providers, IT and software service providers, email and newsletter providers, analytics and consent management providers, support and communication service providers, and technical development and maintenance providers.` },
+  { kind: "p", text: `As a rule, these service providers may process personal data only in accordance with our instructions and on the basis of a data processing agreement pursuant to Article 28 GDPR.` },
+  { kind: "p", text: `Data are disclosed to other recipients only where this is necessary to provide the service you requested, you have expressly consented, a legal obligation applies, or another legal basis exists.` },
+  { kind: "h2", text: `10. Transfers to Third Countries` },
+  { kind: "p", text: `Some of our technical service providers may process personal data outside the European Union or the European Economic Area.` },
+  { kind: "p", text: `Such transfers take place only where the requirements of Articles 44 et seq. GDPR are met. Appropriate safeguards may include an adequacy decision by the European Commission, certification of the recipient under the EU-U.S. Data Privacy Framework, the European Commission’s Standard Contractual Clauses, additional technical and organizational safeguards, or your explicit consent in legally permitted exceptional cases.` },
+  { kind: "h2", text: `11. Storage Period and Deletion` },
+  { kind: "p", text: `We store personal data only for as long as necessary for the relevant processing purpose or for as long as statutory obligations require longer retention.` },
+  { kind: "ul", items: [
+      `Data from contact requests are deleted once the request has been conclusively handled, unless statutory retention obligations require continued storage.`,
+      `Newsletter data are stored until you withdraw your consent. Following an unsubscribe request, certain evidence of the original consent may be retained for a limited period in order to document that consent.`,
+      `Data from the self-assessment and AgePilot functions are stored for as long as necessary to provide the functions you use, or until you request deletion or withdraw your consent.`,
+      `Data processed on the basis of voluntary consent for improvement or scientific evaluation are deleted or anonymized when you withdraw your consent, unless another legal basis permits continued storage.`,
+      `Technical log data are deleted once they are no longer required for security and operational purposes.`
+    ] },
+  { kind: "p", text: `Where immediate deletion is not possible for technical or legal reasons, processing of the relevant data will be restricted.` },
+  { kind: "h2", text: `12. Withdrawal of Consent` },
+  { kind: "p", text: `You may withdraw any consent you have given at any time with effect for the future. This applies in particular to the processing of health data for the self-assessment, storage and evaluation of progress data, voluntary use of your data to improve AgePilot, use for scientific or statistical purposes, the newsletter, and analytics and marketing technologies.` },
+  { kind: "p", text: `Withdrawal does not affect the lawfulness of processing carried out before the withdrawal.` },
+  { kind: "p", text: `To withdraw your consent, you may contact us at info@knowledge-house.com or, where available, use the settings within AgePilot or the website’s consent management system.` },
+  { kind: "h2", text: `13. Your Data Protection Rights` },
+  { kind: "p", text: `Subject to the applicable legal requirements, you have the following rights in particular:` },
+  { kind: "ul", items: [
+      `right of access pursuant to Article 15 GDPR`,
+      `right to rectification pursuant to Article 16 GDPR`,
+      `right to erasure pursuant to Article 17 GDPR`,
+      `right to restriction of processing pursuant to Article 18 GDPR`,
+      `right to data portability pursuant to Article 20 GDPR`,
+      `right to object pursuant to Article 21 GDPR`,
+      `right to withdraw consent pursuant to Article 7(3) GDPR`,
+      `right to lodge a complaint with a supervisory authority pursuant to Article 77 GDPR`
+    ] },
+  { kind: "p", text: `To exercise your rights, you may contact us at info@knowledge-house.com.` },
+  { kind: "h2", text: `14. Right to Object` },
+  { kind: "p", text: `Where we process your personal data on the basis of Article 6(1)(f) GDPR, you may object to the processing at any time on grounds relating to your particular situation.` },
+  { kind: "p", text: `We will then no longer process the relevant data unless we demonstrate compelling legitimate grounds for the processing that override your interests, rights, and freedoms, or the processing is required for the establishment, exercise, or defense of legal claims.` },
+  { kind: "p", text: `You may object at any time, without giving reasons, to the processing of personal data for direct marketing purposes.` },
+  { kind: "h2", text: `15. Right to Lodge a Complaint` },
+  { kind: "p", text: `You have the right to lodge a complaint with a data protection supervisory authority. The supervisory authority generally responsible for THE KNOWLEDGE HOUSE GmbH is:` },
+  { kind: "p", text: `State Commissioner for Data Protection and Freedom of Information of North Rhine-Westphalia
+Kavalleriestraße 2–4
+40213 Düsseldorf
+Germany` },
+  { kind: "p", text: `You may also contact another competent data protection supervisory authority, in particular the authority at your habitual place of residence or place of work.` },
+  { kind: "h2", text: `16. Data Security` },
+  { kind: "p", text: `We take appropriate technical and organizational measures to protect personal data against loss, manipulation, unauthorized access, and other misuse.` },
+  { kind: "p", text: `In doing so, we take into account, in particular, the nature and scope of the data processed, the processing purposes, the state of the art, implementation costs, and the likelihood and severity of potential risks. Protective measures may include encryption, access restrictions, authorization concepts, backups, and procedures for regularly reviewing technical and organizational security.` },
+  { kind: "h2", text: `17. Minors` },
+  { kind: "p", text: `AgePilot is generally not directed at Minors.` },
+  { kind: "h2", text: `18. No Medical Advice` },
+  { kind: "p", text: `AgePilot is intended for general information, self-reflection, and support in developing health-promoting lifestyle habits.` },
+  { kind: "ul", items: [
+      `AgePilot does not provide a medical diagnosis.`,
+      `AgePilot does not detect or treat diseases.`,
+      `AgePilot does not replace medical examination or advice.`,
+      `AgePilot does not provide individualized medical treatment recommendations.`,
+      `AgePilot must not be used as the sole basis for medical decisions.`
+    ] },
+  { kind: "p", text: `If you have health concerns, an existing medical condition, or questions about medical measures, you should consult a physician or another appropriately qualified healthcare professional.` },
+  { kind: "h2", text: `19. Changes to This Privacy Policy` },
+  { kind: "p", text: `We may amend this Privacy Policy if our services, technical systems, or legal requirements change. The current version is available on our website. If a change requires your consent or another active action on your part, we will inform you separately.` },
+],
+  },
+  de: {
+    title: `Datenschutzerklärung`,
+    blocks: [
+  { kind: "p", text: `AgePilot | Stand: Juli 2026` },
+  { kind: "h2", text: `1. Allgemeine Hinweise` },
+  { kind: "p", text: `Der Schutz deiner personenbezogenen Daten ist uns wichtig. In dieser Datenschutzerklärung erläutern wir, welche personenbezogenen Daten wir verarbeiten, wenn du unsere Website und die AgePilot-Anwendungen nutzt, zu welchen Zwecken dies geschieht und welche Rechte du hast.` },
+  { kind: "p", text: `AgePilot unterstützt dich dabei, deine Lebensgewohnheiten zu reflektieren und gesundheitsfördernde Entscheidungen in deinen Alltag zu integrieren. Hierzu können insbesondere ein gesundheitsbezogener Selbsttest, algorithmische Auswertungen, Informationen zu verschiedenen Gesundheits- und Lebensstilbereichen, Fortschrittsmessungen sowie Funktionen zur Unterstützung neuer Gewohnheiten gehören.` },
+  { kind: "p", text: `AgePilot stellt keine medizinischen Diagnosen, gibt keine individuelle medizinische Behandlungsempfehlung und ersetzt keine ärztliche Beratung oder Untersuchung.` },
+  { kind: "h2", text: `2. Verantwortlicher` },
+  { kind: "p", text: `Verantwortlich für die Verarbeitung personenbezogener Daten ist:` },
+  { kind: "p", text: `THE KNOWLEDGE HOUSE GmbH
+Breite Straße 22
+40213 Düsseldorf
+Deutschland` },
+  { kind: "p", text: `Handelsregister: HRB 32589
+Registergericht: Amtsgericht Wuppertal` },
+  { kind: "p", text: `Vertreten durch den Geschäftsführer:
+Prof. Dr. med. Hubert Trübel` },
+  { kind: "p", text: `E-Mail: info@knowledge-house.com` },
+  { kind: "h2", text: `3. Welche Daten wir verarbeiten` },
+  { kind: "p", text: `Je nachdem, welche Funktionen du nutzt, können wir insbesondere folgende Kategorien personenbezogener Daten verarbeiten:` },
+  { kind: "h3", text: `3.1 Kontakt- und Kommunikationsdaten` },
+  { kind: "ul", items: [
+      `deine E-Mail-Adresse`,
+      `dein Name, sofern du ihn freiwillig angibst`,
+      `Inhalte deiner Nachrichten an uns`,
+      `Angaben im Rahmen von Kontakt- oder Supportanfragen`
+    ] },
+  { kind: "h3", text: `3.2 Gesundheits- und Lebensstildaten` },
+  { kind: "p", text: `Wenn du den AgePilot-Selbsttest oder vergleichbare Funktionen nutzt, können deine Antworten Rückschlüsse auf deine Gesundheit und deinen Lebensstil ermöglichen. Hierzu können insbesondere Angaben gehören zu:` },
+  { kind: "ul", items: [
+      `Alter und allgemeinen körperlichen Merkmalen`,
+      `Bewegung und körperlicher Aktivität`,
+      `Ernährung`,
+      `Schlaf und Erholung`,
+      `Stress und psychischem Wohlbefinden`,
+      `sozialen Beziehungen und Lebenszufriedenheit`,
+      `Präventionsverhalten`,
+      `gesundheitsbezogenen Gewohnheiten`,
+      `persönlichen Zielen und Interessen`,
+      `sonstigen von dir im Selbsttest gemachten Angaben`
+    ] },
+  { kind: "p", text: `Soweit diese Angaben Informationen über deine körperliche oder psychische Gesundheit enthalten oder entsprechende Rückschlüsse ermöglichen, handelt es sich um Gesundheitsdaten und damit um besondere Kategorien personenbezogener Daten im Sinne von Art. 9 Abs. 1 DSGVO.` },
+  { kind: "h3", text: `3.3 Ergebnis- und Nutzungsdaten` },
+  { kind: "ul", items: [
+      `Ergebnisse des Selbsttests`,
+      `algorithmisch ermittelte Auswertungen`,
+      `errechnete Kennzahlen und Einschätzungen`,
+      `identifizierte Handlungsfelder`,
+      `ausgewählte Ziele und Gewohnheiten`,
+      `dokumentierte Aktivitäten und Fortschritte`,
+      `Zeitpunkte und Häufigkeit der Nutzung`,
+      `aufgerufene Inhalte und verwendete Funktionen`
+    ] },
+  { kind: "h3", text: `3.4 Technische Daten` },
+  { kind: "p", text: `Bei der Nutzung unserer Website und Anwendungen können technisch erforderliche Daten verarbeitet werden, beispielsweise:` },
+  { kind: "ul", items: [
+      `IP-Adresse`,
+      `Datum und Uhrzeit des Zugriffs`,
+      `Browsertyp und Browserversion`,
+      `Betriebssystem`,
+      `Geräteinformationen`,
+      `aufgerufene Seiten und Funktionen`,
+      `Referrer-URL`,
+      `technische Fehler- und Absturzinformationen`,
+      `Serverprotokolldaten`
+    ] },
+  { kind: "p", text: `Diese Daten werden grundsätzlich bei der Nutzung unserer Website oder Anwendung erfasst, nicht bereits allein durch die Installation einer Anwendung.` },
+  { kind: "h2", text: `4. Zwecke und Rechtsgrundlagen der Verarbeitung` },
+  { kind: "h3", text: `4.1 Bereitstellung der Website und technische Sicherheit` },
+  { kind: "p", text: `Wir verarbeiten technische Daten, um unsere Website und Anwendungen bereitzustellen, Inhalte korrekt auf deinem Gerät anzuzeigen, die Stabilität und Sicherheit unserer Systeme zu gewährleisten, technische Fehler zu erkennen und zu beheben sowie Missbrauch und unberechtigte Zugriffe zu verhindern.` },
+  { kind: "p", text: `Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht in der sicheren, stabilen und funktionsfähigen Bereitstellung unseres Angebots.` },
+  { kind: "h3", text: `4.2 Durchführung des Selbsttests und Erstellung deiner Auswertung` },
+  { kind: "p", text: `Wir verarbeiten deine Antworten, um deinen Selbsttest durchzuführen, deine Angaben algorithmisch auszuwerten, dir deine Ergebnisse und relevante Handlungsfelder anzuzeigen, mögliche Auswirkungen gesundheitsfördernder Verhaltensänderungen zu veranschaulichen, dir allgemeine, auf deinen Angaben basierende Informationen bereitzustellen und bei wiederholter Nutzung Veränderungen und Fortschritte darzustellen.` },
+  { kind: "p", text: `Soweit hierbei Gesundheitsdaten verarbeitet werden, erfolgt die Verarbeitung nur auf Grundlage deiner ausdrücklichen Einwilligung gemäß Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.` },
+  { kind: "p", text: `Die Einwilligung ist freiwillig und kann jederzeit mit Wirkung für die Zukunft widerrufen werden.` },
+  { kind: "h3", text: `4.3 Life Path Analyzer, Fortschrittsmessung und Habit Engine` },
+  { kind: "p", text: `Sofern du diese Funktionen nutzt, verarbeiten wir deine Angaben und bisherigen Ergebnisse, um gesundheitsbezogene Handlungsfelder darzustellen, mögliche langfristige Auswirkungen unterschiedlicher Verhaltensweisen zu veranschaulichen, deinen Fortschritt über einen bestimmten Zeitraum abzubilden, dich bei der Auswahl und Umsetzung gesundheitsfördernder Gewohnheiten zu unterstützen und dir passende allgemeine Inhalte und Hinweise innerhalb der Anwendung anzuzeigen.` },
+  { kind: "p", text: `Die Verarbeitung erfolgt, soweit Gesundheitsdaten betroffen sind, auf Grundlage deiner ausdrücklichen Einwilligung gemäß Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO.` },
+  { kind: "p", text: `Die bereitgestellten Ergebnisse und Hinweise sind allgemeine, automatisiert erzeugte Informationen. Sie stellen keine medizinische Diagnose oder individuelle medizinische Empfehlung dar.` },
+  { kind: "h3", text: `4.4 Kontaktaufnahme` },
+  { kind: "p", text: `Wenn du uns per E-Mail, Kontaktformular oder auf anderem Weg kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung deiner Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn deine Anfrage der Vorbereitung oder Durchführung eines Vertragsverhältnisses dient, und Art. 6 Abs. 1 lit. f DSGVO bei sonstigen Anfragen. Unser berechtigtes Interesse besteht in der sachgerechten Bearbeitung und Dokumentation von Anfragen.` },
+  { kind: "h3", text: `4.5 Newsletter` },
+  { kind: "p", text: `Wenn du unseren Newsletter abonnierst, verarbeiten wir deine E-Mail-Adresse, um dir Informationen zu AgePilot, Longevity, Healthspan, gesundheitsbezogenen Gewohnheiten und unseren Angeboten zuzusenden.` },
+  { kind: "p", text: `Die Anmeldung erfolgt über ein Double-Opt-in-Verfahren. Nach der Anmeldung erhältst du eine E-Mail, in der du deine Anmeldung bestätigen musst. Dabei können der Anmelde- und Bestätigungszeitpunkt sowie deine IP-Adresse gespeichert werden, um deine Einwilligung nachweisen zu können.` },
+  { kind: "p", text: `Rechtsgrundlage für den Versand ist deine Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO in Verbindung mit § 7 Abs. 2 Nr. 3 UWG. Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, insbesondere über den Abmeldelink am Ende jedes Newsletters.` },
+  { kind: "h2", text: `5. Freiwillige Nutzung von Daten zur Verbesserung von AgePilot` },
+  { kind: "p", text: `Vor Beginn des Selbsttests kannst du entscheiden, ob deine Antworten zusätzlich zur Verbesserung von AgePilot verwendet werden dürfen. Die Auswahl „Nicht teilen“ hindert dich nicht daran, den Selbsttest und dessen unmittelbare Auswertung zu nutzen.` },
+  { kind: "h3", text: `5.1 Auswahl „Nicht teilen“` },
+  { kind: "p", text: `Wenn du „Nicht teilen“ auswählst, verwenden wir deine Angaben ausschließlich zur Durchführung des Selbsttests, zur Erstellung und Anzeige deiner persönlichen Auswertung, zur Bereitstellung der von dir genutzten AgePilot-Funktionen sowie zur technisch erforderlichen Speicherung und Sicherheit.` },
+  { kind: "p", text: `Deine Angaben werden in diesem Fall nicht zusätzlich zur wissenschaftlichen Auswertung oder zur allgemeinen Verbesserung der inhaltlichen Modelle und Empfehlungen verwendet.` },
+  { kind: "h3", text: `5.2 Auswahl „Teilen“` },
+  { kind: "p", text: `Wenn du „Teilen“ auswählst, dürfen deine Angaben zusätzlich dazu verwendet werden, die Qualität und Aussagekraft unserer Auswertungen zu untersuchen, die zugrunde liegenden Modelle und Algorithmen zu prüfen und weiterzuentwickeln, allgemeine Zusammenhänge zwischen Lebensgewohnheiten und den innerhalb von AgePilot dargestellten Ergebnissen zu untersuchen, die Nutzerfreundlichkeit und Relevanz unserer Inhalte zu verbessern sowie wissenschaftliche oder statistische Auswertungen durchzuführen.` },
+  { kind: "p", text: `Diese zusätzliche Verarbeitung erfolgt nur auf Grundlage einer gesonderten, freiwilligen Einwilligung gemäß Art. 6 Abs. 1 lit. a und, soweit Gesundheitsdaten betroffen sind, Art. 9 Abs. 2 lit. a DSGVO. Die Einwilligung in die zusätzliche Nutzung deiner Daten ist keine Voraussetzung für die Nutzung des Selbsttests.` },
+  { kind: "p", text: `Du kannst diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Der Widerruf hat keine Auswirkungen auf die Rechtmäßigkeit der Verarbeitung, die vor dem Widerruf erfolgt ist.` },
+  { kind: "h2", text: `6. Wissenschaftliche und statistische Auswertungen` },
+  { kind: "p", text: `Soweit du ausdrücklich eingewilligt hast, können deine Daten für wissenschaftliche oder statistische Zwecke verarbeitet werden.` },
+  { kind: "p", text: `Wir verwenden die Daten dabei nach Möglichkeit in anonymisierter Form. Anonymisierte Daten lassen keinen Rückschluss mehr auf deine Person zu und unterliegen grundsätzlich nicht mehr der DSGVO.` },
+  { kind: "p", text: `Soweit eine vollständige Anonymisierung für den jeweiligen Zweck nicht möglich ist, können Daten pseudonymisiert verarbeitet werden. Bei einer Pseudonymisierung werden unmittelbar identifizierende Angaben getrennt von den Auswertungsdaten gespeichert. Pseudonymisierte Daten bleiben personenbezogene Daten und werden entsprechend geschützt.` },
+  { kind: "p", text: `Eine Veröffentlichung wissenschaftlicher oder statistischer Ergebnisse erfolgt nur in einer Form, die keinen Rückschluss auf einzelne Personen zulässt.` },
+  { kind: "p", text: `Eine Weitergabe pseudonymisierter personenbezogener Daten an Forschungspartner oder andere Dritte erfolgt nur, wenn du darin ausdrücklich eingewilligt hast, eine andere gesetzliche Rechtsgrundlage besteht oder die empfangende Stelle als vertraglich gebundener Auftragsverarbeiter für uns tätig wird.` },
+  { kind: "h2", text: `7. Automatisierte Auswertung` },
+  { kind: "p", text: `Die Ergebnisse des AgePilot-Selbsttests werden ganz oder teilweise automatisiert auf Grundlage deiner Eingaben erstellt.` },
+  { kind: "p", text: `Dabei können deine Angaben bestimmten Gesundheits- und Lebensstilbereichen zugeordnet, gewichtet und zu einer persönlichen Auswertung zusammengeführt werden. Die Auswertung dient dazu, dir allgemeine Informationen, mögliche Handlungsfelder und gesundheitsfördernde Gewohnheiten aufzuzeigen.` },
+  { kind: "p", text: `Die automatisierte Auswertung hat keine rechtliche Wirkung und entfaltet dir gegenüber keine vergleichbar erhebliche rechtliche oder wirtschaftliche Wirkung im Sinne von Art. 22 DSGVO.` },
+  { kind: "p", text: `Die Ergebnisse stellen insbesondere keine medizinische Diagnose, Risikoprognose oder Behandlungsempfehlung dar.` },
+  { kind: "h2", text: `8. Cookies und ähnliche Technologien` },
+  { kind: "h3", text: `8.1 Technisch notwendige Technologien` },
+  { kind: "p", text: `Technisch notwendige Technologien können ohne deine Einwilligung eingesetzt werden, soweit sie erforderlich sind, um die Website bereitzustellen, deine Sprach- oder Datenschutzeinstellungen zu speichern, die Sicherheit der Website zu gewährleisten oder von dir ausdrücklich angeforderte Funktionen bereitzustellen.` },
+  { kind: "p", text: `Die Verarbeitung personenbezogener Daten erfolgt hierbei regelmäßig auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse besteht in der sicheren und funktionsfähigen Bereitstellung unserer Website.` },
+  { kind: "h3", text: `8.2 Analyse- und Marketingtechnologien` },
+  { kind: "p", text: `Analyse-, Statistik- und Marketingtechnologien werden nur eingesetzt, nachdem du über unser Consent-Management-System eingewilligt hast.` },
+  { kind: "p", text: `Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO. Soweit Informationen auf deinem Endgerät gespeichert oder ausgelesen werden, erfolgt dies auf Grundlage deiner Einwilligung gemäß § 25 Abs. 1 TDDDG.` },
+  { kind: "p", text: `Du kannst deine Einwilligung jederzeit über die Datenschutzeinstellungen der Website mit Wirkung für die Zukunft ändern oder widerrufen.` },
+  { kind: "h2", text: `9. Empfänger und Auftragsverarbeiter` },
+  { kind: "p", text: `Wir können sorgfältig ausgewählte Dienstleister einsetzen, die personenbezogene Daten in unserem Auftrag verarbeiten. Hierzu können insbesondere Hosting- und Cloudanbieter, IT- und Softwaredienstleister, Anbieter für den Versand von E-Mails und Newslettern, Anbieter für Analyse- und Consent-Management-Systeme, Support- und Kommunikationsdienstleister sowie technische Entwicklungs- und Wartungsdienstleister gehören.` },
+  { kind: "p", text: `Diese Dienstleister dürfen personenbezogene Daten grundsätzlich nur entsprechend unseren Weisungen und auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO verarbeiten.` },
+  { kind: "p", text: `Eine Übermittlung an andere Empfänger erfolgt nur, wenn sie zur Bereitstellung der von dir gewünschten Leistung erforderlich ist, du ausdrücklich eingewilligt hast, eine gesetzliche Verpflichtung besteht oder eine andere gesetzliche Rechtsgrundlage vorliegt.` },
+  { kind: "h2", text: `10. Übermittlung in Drittländer` },
+  { kind: "p", text: `Einige unserer technischen Dienstleister können personenbezogene Daten außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums verarbeiten.` },
+  { kind: "p", text: `Eine solche Übermittlung erfolgt nur, wenn die gesetzlichen Voraussetzungen der Art. 44 ff. DSGVO erfüllt sind. Hierzu können insbesondere ein Angemessenheitsbeschluss der Europäischen Kommission, eine Zertifizierung des Empfängers nach dem EU-US Data Privacy Framework, Standardvertragsklauseln der Europäischen Kommission, zusätzliche technische und organisatorische Schutzmaßnahmen oder deine ausdrückliche Einwilligung in gesetzlich vorgesehenen Ausnahmefällen gehören.` },
+  { kind: "h2", text: `11. Speicherdauer und Löschung` },
+  { kind: "p", text: `Wir speichern personenbezogene Daten nur so lange, wie dies für den jeweiligen Verarbeitungszweck erforderlich ist oder gesetzliche Pflichten eine längere Speicherung verlangen.` },
+  { kind: "ul", items: [
+      `Daten aus Kontaktanfragen werden gelöscht, wenn die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.`,
+      `Newsletterdaten werden bis zum Widerruf deiner Einwilligung gespeichert. Nach einer Abmeldung können bestimmte Nachweisdaten befristet gespeichert werden, um die ursprünglich erteilte Einwilligung nachweisen zu können.`,
+      `Daten aus dem Selbsttest und den AgePilot-Funktionen werden gespeichert, solange sie für die Bereitstellung der von dir genutzten Funktionen erforderlich sind oder bis du ihre Löschung verlangst beziehungsweise deine Einwilligung widerrufst.`,
+      `Daten, die auf Grundlage einer freiwilligen Einwilligung zur Verbesserung oder wissenschaftlichen Auswertung verarbeitet werden, werden gelöscht oder anonymisiert, wenn du deine Einwilligung widerrufst und keine andere Rechtsgrundlage für eine weitere Speicherung besteht.`,
+      `Technische Protokolldaten werden gelöscht, sobald sie für Sicherheits- und Betriebszwecke nicht mehr erforderlich sind.`
+    ] },
+  { kind: "p", text: `Soweit eine Löschung aus technischen oder rechtlichen Gründen nicht unmittelbar möglich ist, wird die Verarbeitung der betreffenden Daten eingeschränkt.` },
+  { kind: "h2", text: `12. Widerruf von Einwilligungen` },
+  { kind: "p", text: `Du kannst eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Dies gilt insbesondere für die Verarbeitung von Gesundheitsdaten zur Durchführung des Selbsttests, die Speicherung und Auswertung deiner Fortschrittsdaten, die freiwillige Nutzung deiner Daten zur Verbesserung von AgePilot, die Nutzung für wissenschaftliche oder statistische Zwecke, den Newsletter sowie Analyse- und Marketingtechnologien.` },
+  { kind: "p", text: `Der Widerruf berührt nicht die Rechtmäßigkeit der Verarbeitung, die bis zum Zeitpunkt des Widerrufs erfolgt ist.` },
+  { kind: "p", text: `Zum Widerruf kannst du dich an info@knowledge-house.com wenden oder, soweit verfügbar, die Einstellungen innerhalb von AgePilot beziehungsweise das Consent-Management-System der Website verwenden.` },
+  { kind: "h2", text: `13. Deine Datenschutzrechte` },
+  { kind: "p", text: `Du hast im Rahmen der gesetzlichen Voraussetzungen insbesondere folgende Rechte:` },
+  { kind: "ul", items: [
+      `Recht auf Auskunft gemäß Art. 15 DSGVO`,
+      `Recht auf Berichtigung gemäß Art. 16 DSGVO`,
+      `Recht auf Löschung gemäß Art. 17 DSGVO`,
+      `Recht auf Einschränkung der Verarbeitung gemäß Art. 18 DSGVO`,
+      `Recht auf Datenübertragbarkeit gemäß Art. 20 DSGVO`,
+      `Recht auf Widerspruch gemäß Art. 21 DSGVO`,
+      `Recht auf Widerruf erteilter Einwilligungen gemäß Art. 7 Abs. 3 DSGVO`,
+      `Recht auf Beschwerde bei einer Datenschutzaufsichtsbehörde gemäß Art. 77 DSGVO`
+    ] },
+  { kind: "p", text: `Zur Ausübung deiner Rechte kannst du uns unter info@knowledge-house.com kontaktieren.` },
+  { kind: "h2", text: `14. Widerspruchsrecht` },
+  { kind: "p", text: `Soweit wir deine personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten, kannst du aus Gründen, die sich aus deiner besonderen Situation ergeben, jederzeit Widerspruch gegen die Verarbeitung einlegen.` },
+  { kind: "p", text: `Wir verarbeiten die betreffenden Daten dann nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die deine Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.` },
+  { kind: "p", text: `Der Verarbeitung personenbezogener Daten zum Zweck der Direktwerbung kannst du jederzeit ohne Angabe von Gründen widersprechen.` },
+  { kind: "h2", text: `15. Beschwerderecht` },
+  { kind: "p", text: `Du hast das Recht, dich bei einer Datenschutzaufsichtsbehörde zu beschweren. Für die THE KNOWLEDGE HOUSE GmbH ist grundsätzlich folgende Behörde zuständig:` },
+  { kind: "p", text: `Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen
+Kavalleriestraße 2–4
+40213 Düsseldorf` },
+  { kind: "p", text: `Du kannst dich auch an eine andere zuständige Datenschutzaufsichtsbehörde wenden, insbesondere an die Behörde deines gewöhnlichen Aufenthaltsorts oder Arbeitsplatzes.` },
+  { kind: "h2", text: `16. Datensicherheit` },
+  { kind: "p", text: `Wir treffen geeignete technische und organisatorische Maßnahmen, um personenbezogene Daten vor Verlust, Manipulation, unbefugtem Zugriff und sonstigem Missbrauch zu schützen.` },
+  { kind: "p", text: `Dabei berücksichtigen wir insbesondere Art und Umfang der verarbeiteten Daten, die Verarbeitungszwecke, den Stand der Technik, die Implementierungskosten sowie die Wahrscheinlichkeit und Schwere möglicher Risiken. Zu den Schutzmaßnahmen können insbesondere Verschlüsselung, Zugriffsbeschränkungen, Berechtigungskonzepte, Datensicherungen sowie Verfahren zur regelmäßigen Überprüfung der technischen und organisatorischen Sicherheit gehören.` },
+  { kind: "h2", text: `17. Minderjährige` },
+  { kind: "p", text: `AgePilot richtet sich grundsätzlich nicht an Minderjährige.` },
+  { kind: "h2", text: `18. Keine medizinische Beratung` },
+  { kind: "p", text: `AgePilot dient der allgemeinen Information, Selbstreflexion und Unterstützung gesundheitsfördernder Lebensgewohnheiten.` },
+  { kind: "ul", items: [
+      `AgePilot stellt keine medizinische Diagnose.`,
+      `AgePilot erkennt oder behandelt keine Krankheiten.`,
+      `AgePilot ersetzt keine ärztliche Untersuchung oder Beratung.`,
+      `AgePilot gibt keine individuelle medizinische Therapieempfehlung.`,
+      `AgePilot darf nicht als alleinige Grundlage für medizinische Entscheidungen verwendet werden.`
+    ] },
+  { kind: "p", text: `Bei gesundheitlichen Beschwerden, bestehenden Erkrankungen oder Fragen zu medizinischen Maßnahmen solltest du dich an eine Ärztin, einen Arzt oder eine andere entsprechend qualifizierte medizinische Fachperson wenden.` },
+  { kind: "h2", text: `19. Änderungen dieser Datenschutzerklärung` },
+  { kind: "p", text: `Wir können diese Datenschutzerklärung anpassen, wenn sich unsere Angebote, technischen Systeme oder rechtlichen Anforderungen ändern. Die jeweils aktuelle Fassung ist auf unserer Website abrufbar. Wenn eine Änderung deine Einwilligung oder eine andere aktive Mitwirkung erfordert, werden wir dich gesondert darüber informieren.` },
+],
+  },
+};
+
+function linkifyEmails(text: string) {
+  const parts = text.split(/(info@knowledge-house\.com)/g);
+  return parts.map((part, index) =>
+    part === "info@knowledge-house.com" ? (
+      <a
+        key={index}
+        href="mailto:info@knowledge-house.com"
+        className="text-primary underline"
+      >
+        {part}
+      </a>
+    ) : (
+      <Fragment key={index}>{part}</Fragment>
+    )
+  );
+}
+
+function RichText({ text }: { text: string }) {
+  if (text.includes("\n")) {
+    return (
+      <>
+        {text.split("\n").map((line, index, arr) => (
+          <Fragment key={index}>
+            {linkifyEmails(line)}
+            {index < arr.length - 1 ? <br /> : null}
+          </Fragment>
+        ))}
+      </>
+    );
+  }
+  return <>{linkifyEmails(text)}</>;
+}
+
+export default function PrivacyPage() {
   const locale = useLocale();
-  const t = useTranslations("Legal");
+  const { title, blocks } = content[locale === "de" ? "de" : "en"];
 
   return (
     <main className="relative min-h-screen w-full bg-background">
       <section className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-12 pt-28 pb-24">
-        {locale !== "de" && (
-          <p className="mb-6 rounded-xl border border-card-border bg-card px-4 py-3 text-sm text-font-secondary">
-            {t("germanOnlyNote")}
-          </p>
-        )}
-        <h1 className="text-4xl md:text-5xl font-medium mb-10">
-          Datenschutzbestimmungen
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-medium mb-4">{title}</h1>
 
-        <div className="prose prose-lg max-w-none text-font-primary gap-2">
-          Datenschutzerklärung Der Schutz deiner persönlichen Daten ist uns ein
-          wichtiges Anliegen. Wir erläutern dir daher nachfolgend, welche
-          personenbezogenen Daten wir im Rahmen unseres App- und
-          Webseitenbetriebs verarbeiten: Vorab weisen wir auf Folgendes hin: Die
-          für die Datenverarbeitung im Zusammenhang mit dem Betrieb unserer App
-          verantwortliche Stelle ist die THE KNOWLEDGE HOUSE GmbH Breite Straße
-          22 40213 Düsseldorf Deutschland Handelsregister: AG Wuppertal HRB
-          32589 vertreten durch den Geschäftsführer Prof. Dr. Hubert
-          Karl-Friedrich Trübel Du kannst dich mit deinen Anliegen jederzeit per
-          E-Mail wenden an [info@knowledge-house.com]. Die Verarbeitung deiner
-          personenbezogenen Daten durch uns erfolgt entweder auf Grundlage einer
-          erteilten Einwilligung (Art. 6 Abs. 1 lit. a)
-          Datenschutzgrundverordnung (DSGVO), zur Erfüllung eines Vertrags,
-          dessen Vertragspartner du bist (Art. 6 Abs. 1 lit. b) DSGVO), zur
-          Erfüllung einer rechtlichen Verpflichtung von uns (Art. 6 Abs. 1 lit.
-          c) DSGVO) oder zur Wahrung unserer berechtigten Interessen (Art. 6
-          Abs. 1 lit. f) DSGVO). Datenschutz Die Datenverarbeitung durch unsere
-          App erfolgt durch die THE KNOWLEDGE HOUSE GmbH (im Folgenden auch
-          „Betreiber“). Soweit personenbezogene Daten (beispielsweise Name,
-          Anschrift oder E- Mail-Adressen) erhoben werden, erfolgt dies, soweit
-          möglich, stets auf freiwilliger Basis. Diese Daten werden ohne deine
-          ausdrückliche Zustimmung nicht an Dritte weitergegeben. Wir weisen
-          darauf hin, dass die Datenübertragung im Internet (z.B. bei der
-          Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein
-          lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht
-          möglich. Der Nutzung von im Rahmen der Impressumspflicht
-          veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht
-          ausdrücklich angeforderter Werbung und Informationsmaterialien wird
-          hiermit ausdrücklich widersprochen. Die Betreiber der App behalten
-          sich ausdrücklich rechtliche Schritte im Falle der unverlangten
-          Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor. Deine
-          personenbezogenen Daten werden gelöscht, wenn der Verarbeitungszweck
-          erreicht ist, es sei denn, der Löschung stehen gesetzliche
-          Aufbewahrungspflichten entgegen. Andere Daten werden automatisch oder
-          nach deiner Einwilligung bei Verwendung der App durch unsere
-          IT-Systeme erfasst. Das sind vor allem technische Daten (z.B.
-          Absturzberichte, Nutzerverhalten oder Uhrzeit der Verwendung). Die
-          Erfassung dieser Daten erfolgt automatisch, sobald du unsere App auf
-          deinem Smartphone installierst. Arten der verarbeiteten Daten -
-          Bestandsdaten (z.B., Personen-Stammdaten, Namen oder Adressen) -
-          Kontaktdaten (z.B., E-Mail-Adressen, Telefonnummern) - Inhaltsdaten
-          (z.B., Texteingaben) - Nutzungsdaten (z.B., besuchte Webseiten,
-          Interesse an Inhalten, Zugriffszeiten) - Meta-/Kommunikationsdaten
-          (z.B., Geräte-Informationen, IP-Adressen) Kategorien betroffener
-          Personen Besucher:innen und Nutzer:innen unserer App und unserer
-          Webseite (im Folgenden bezeichnen wir die betroffenen Personen
-          zusammenfassend auch als „Nutzer:innen“). Zweck der Verarbeitung Ein
-          Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung und
-          Sicherheit der App zu gewährleisten. Andere Daten können zur Analyse
-          deines Nutzerverhaltens verwendet werden. Wieder andere Daten
-          benötigen wir zur Bereitstellung, Durchführung und Abrechnung unserer
-          Services. Verwendete Begrifflichkeiten „Personenbezogene Daten“ sind
-          alle Daten, die sich auf eine identifizierte oder identifizierbare
-          natürliche Person (im Folgenden „betroffene Person“) beziehen; als
-          identifizierbar wird eine natürliche Person angesehen, die direkt oder
-          indirekt, insbesondere mittels Zuordnung zu einer Kennung wie einem
-          Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung
-          (z.B. Cookie) oder zu einem oder mehreren besonderen Merkmalen
-          identifiziert werden kann, die Ausdruck der physischen,
-          physiologischen, genetischen, psychischen, wirtschaftlichen,
-          kulturellen oder sozialen Identität dieser natürlichen Person sind.
-          „Verarbeitung“ ist jeder mit oder ohne Hilfe automatisierter Verfahren
-          ausgeführte Vorgang oder jede solche Vorgangsreihe im Zusammenhang mit
-          personenbezogenen Daten. Der Begriff reicht weit und umfasst praktisch
-          jeden Umgang mit Daten. „Pseudonymisierung“ ist die Verarbeitung
-          personenbezogener Daten in einer Weise, dass die personenbezogenen
-          Daten ohne Hinzuziehung zusätzlicher Informationen nicht mehr einer
-          spezifischen betroffenen Person zugeordnet werden können, sofern diese
-          zusätzlichen Informationen gesondert aufbewahrt werden und technischen
-          und organisatorischen Maßnahmen unterliegen, die gewährleisten, dass
-          die personenbezogenen Daten nicht einer identifizierten oder
-          identifizierbaren natürlichen Person zugewiesen werden. „Profiling“
-          ist jede Art der automatisierten Verarbeitung personenbezogener Daten,
-          die darin besteht, dass diese personenbezogenen Daten verwendet
-          werden, um bestimmte persönliche Aspekte, die sich auf eine natürliche
-          Person beziehen, zu bewerten, insbesondere um Aspekte bezüglich
-          Arbeitsleistung, wirtschaftliche Lage, Gesundheit, persönliche
-          Vorlieben, Interessen, Zuverlässigkeit, Verhalten, Aufenthaltsort oder
-          Ortswechsel dieser natürlichen Person zu analysieren oder
-          vorherzusagen. Als „Verantwortliche:r“ wird die natürliche oder
-          juristische Person, Behörde, Einrichtung oder andere Stelle, die
-          allein oder gemeinsam mit anderen über die Zwecke und Mittel der
-          Verarbeitung von personenbezogenen Daten entscheidet, bezeichnet.
-          Ein:e „Auftragsverarbeiter:in“ ist eine natürliche oder juristische
-          Person, Behörde, Einrichtung oder andere Stelle, die personenbezogene
-          Daten im Auftrag des:der Verantwortlichen verarbeitet. Maßgebliche
-          Rechtsgrundlage Nach Maßgabe des Art. 13 DSGVO teilen wir dir die
-          Rechtsgrundlagen unserer Datenverarbeitungen mit. Für Nutzer:innen aus
-          dem Geltungsbereich der DSGVO, d. h. der EU und des EWR, gilt, sofern
-          die Rechtsgrundlage in der Datenschutzerklärung nicht genannt wird,
-          Folgendes: Die Rechtsgrundlagen für die Einholung von Einwilligungen
-          sind Art. 6 Abs. 1 lit. a) und Art. 7 DSGVO. Die Rechtsgrundlage für
-          die Verarbeitung zur Erfüllung unserer Leistungen und Durchführung
-          vertraglicher Maßnahmen sowie Beantwortung von Anfragen ist Art. 6
-          Abs. 1 lit. b) DSGVO. Die Rechtsgrundlage für die Verarbeitung zur
-          Erfüllung unserer rechtlichen Verpflichtungen ist Art. 6 Abs. 1 lit.
-          c) DSGVO. Für den Fall, dass lebenswichtige Interessen der betroffenen
-          Person oder einer anderen natürlichen Person eine Verarbeitung
-          personenbezogener Daten erforderlich machen, dient Art. 6 Abs. 1 lit.
-          d) DSGVO als Rechtsgrundlage. Die Rechtsgrundlage für die Verarbeitung
-          zur Wahrung unserer berechtigten Interessen ist Art. 6 Abs. 1 lit. f)
-          DSGVO. Die Verarbeitung von Daten zu anderen Zwecken als denen, zu
-          denen sie erhoben wurden, bestimmt sich nach den Vorgaben des Art 6
-          Abs. 4 DSGVO. Die Verarbeitung von besonderen Kategorien von Daten
-          (entsprechend Art. 9 Abs. 1 DSGVO) bestimmt sich nach den Vorgaben des
-          Art. 9 Abs. 2 DSGVO. Sicherheitsmaßnahmen Wir treffen nach Maßgabe der
-          gesetzlichen Vorgaben unter Berücksichtigung des Stands der Technik,
-          der Implementierungskosten und der Art, des Umfangs, der Umstände und
-          der Zwecke der Verarbeitung sowie der unterschiedlichen
-          Eintrittswahrscheinlichkeit und Schwere des Risikos für die Rechte und
-          Freiheiten natürlicher Personen geeignete technische und
-          organisatorische Maßnahmen, um ein dem Risiko angemessenes
-          Schutzniveau zu gewährleisten. Zu den Maßnahmen gehören insbesondere
-          die Sicherung der Vertraulichkeit, Integrität und Verfügbarkeit von
-          Daten durch Kontrolle des physischen Zugangs zu den Daten, als auch
-          des sie betreffenden Zugriffs, der Eingabe, Weitergabe, der Sicherung
-          der Verfügbarkeit und ihrer Trennung. Des Weiteren haben wir Verfahren
-          eingerichtet, die eine Wahrnehmung von Betroffenenrechten, Löschung
-          von Daten und Reaktion auf Gefährdung der Daten gewährleisten. Ferner
-          berücksichtigen wir den Schutz personenbezogener Daten bereits bei der
-          Entwicklung, bzw. Auswahl von Hardware, Software sowie Verfahren
-          entsprechend dem Prinzip des Datenschutzes durch Technikgestaltung und
-          durch datenschutzfreundliche Voreinstellungen. Rechte der betroffenen
-          Personen Du hast das Recht, eine Bestätigung darüber zu verlangen, ob
-          betreffende Daten verarbeitet werden und das Recht auf Auskunft über
-          diese Daten sowie auf weitere Informationen und Kopien der Daten
-          entsprechend den gesetzlichen Vorgaben. Darüber hinaus hast du
-          entsprechend den gesetzlichen Vorgaben das Recht, die
-          Vervollständigung der dich betreffenden Daten oder die Berichtigung
-          der dich betreffenden unrichtigen Daten zu verlangen. Du hast außerdem
-          das Recht, zu verlangen, dass betreffende Daten unverzüglich gelöscht
-          werden, bzw. alternativ nach Maßgabe der gesetzlichen Vorgaben eine
-          Einschränkung der Verarbeitung der Daten zu verlangen. Wenn du die
-          Verarbeitung deiner personenbezogenen Daten eingeschränkt hast, dürfen
-          diese Daten – von ihrer Speicherung abgesehen – nur mit deiner
-          Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von
-          Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen
-          oder juristischen Person oder aus Gründen eines wichtigen öffentlichen
-          Interesses der Europäischen Union oder eines Mitgliedstaats
-          verarbeitet werden. Du hast das Recht, die dich betreffenden Daten,
-          die du uns bereitgestellt hast, nach Maßgabe der gesetzlichen Vorgaben
-          zu erhalten und deren Übermittlung an andere Verantwortliche zu
-          fordern. Sofern du die direkte Übertragung der Daten an eine:n
-          andere:n Verantwortliche:n verlangst, erfolgt dies nur, soweit es
-          technisch machbar ist. Du hast ferner nach Maßgabe der gesetzlichen
-          Vorgaben das Recht, eine Beschwerde bei der zuständigen
-          Aufsichtsbehörde einzureichen. Das Beschwerderecht besteht unbeschadet
-          anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.
-          Widerrufsrecht Wenn du eine Einwilligung zur Datenverarbeitung erteilt
-          hast, kannst du diese Einwilligung jederzeit für die Zukunft
-          widerrufen. Widerspruchsrecht gegen die Datenerhebung in besonderen
-          Fällen sowie gegen Direktwerbung (Art. 21 DSGVO) Erfolgt die
-          Datenverarbeitung auf Grundlage von Art. 6 Abs. 1 lit. e) oder f)
-          DSGVO, hast du jederzeit das Recht, aus Gründen, die sich aus deiner
-          besonderen Situation ergeben, gegen die Verarbeitung deiner
-          personenbezogenen Daten Widerspruch einzulegen; dies gilt auch für ein
-          auf diese Bestimmungen gestütztes Profiling. Die jeweilige
-          Rechtsgrundlage, auf der eine Verarbeitung beruht, entnimmst du dieser
-          Datenschutzerklärung. Machst du von deinem Widerspruchsrecht Gebrauch,
-          werden wir deine betroffenen personenbezogenen Daten nicht mehr
-          verarbeiten, es sei denn, wir können zwingende schutzwürdige Gründe
-          für die Verarbeitung nachweisen, die deine Interessen, Rechte und
-          Freiheiten überwiegen oder die Verarbeitung dient der Geltendmachung,
-          Ausübung oder Verteidigung von Rechtsansprüchen (Widerspruch nach Art.
-          21 Abs. 1 DSGVO). Werden deine personenbezogenen Daten verarbeitet, um
-          Direktwerbung zu betreiben, so hast du das Recht, jederzeit
-          Widerspruch gegen die Verarbeitung von dich betreffenden
-          personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen; dies
-          gilt auch für das Profiling, soweit es mit solcher Direktwerbung in
-          Verbindung steht. Wenn du widersprichst, werden deine
-          personenbezogenen Daten anschließend nicht mehr zum Zwecke der
-          Direktwerbung verwendet (Widerspruch nach Art. 21 Abs. 2 DSGVO).
-          Löschung von Daten Die von uns verarbeiteten Daten werden nach Maßgabe
-          der gesetzlichen Vorgaben gelöscht oder in ihrer Verarbeitung
-          eingeschränkt. Sofern nicht im Rahmen dieser Datenschutzerklärung
-          ausdrücklich angegeben, werden die bei uns gespeicherten Daten
-          gelöscht, sobald sie für ihre Zweckbestimmung nicht mehr erforderlich
-          sind und der Löschung keine gesetzlichen Aufbewahrungspflichten
-          entgegenstehen. Sofern die Daten nicht gelöscht werden, weil sie für
-          andere und gesetzlich zulässige Zwecke erforderlich sind, wird deren
-          Verarbeitung eingeschränkt. D. h. die Daten werden gesperrt und nicht
-          für andere Zwecke verarbeitet. Das gilt z.B. für Daten, die aus
-          handels- oder steuerrechtlichen Gründen aufbewahrt werden müssen.
-          Änderungen und Aktualisierungen der Datenschutzerklärung Wir bitten
-          dich, dich regelmäßig über den Inhalt unserer Datenschutzerklärung zu
-          informieren. Wir passen die Datenschutzerklärung an, sobald die
-          Änderungen der von uns durchgeführten Datenverarbeitungen dies
-          erforderlich machen. Wir informieren dich, sobald durch die Änderungen
-          eine Mitwirkungshandlung deinerseits (z.B. Einwilligung) oder eine
-          sonstige individuelle Benachrichtigung erforderlich wird.
-          Geschäftsbezogene Verarbeitung Zusätzlich verarbeiten wir
-          Vertragsdaten (z.B., Vertragsgegenstand, Laufzeit, Kundenkategorie)
-          und Zahlungsdaten (z.B., Bankverbindung, Zahlungshistorie) unserer
-          Nutzer:innen und Geschäftspartner:innen zwecks Erbringung
-          vertraglicher Leistungen, Service und Kundenpflege, Marketing, Werbung
-          und Marktforschung. Der Gesundheitsvorsorge dienende Leistungen Wir
-          verarbeiten die Daten unserer Nutzer:innen entsprechend Art. 6 Abs. 1
-          lit. b) DSGVO, um ihnen gegenüber unsere vertraglichen oder
-          vorvertraglichen Leistungen zu erbringen. Die hierbei verarbeiteten
-          Daten, die Art, der Umfang und der Zweck und die Erforderlichkeit
-          ihrer Verarbeitung bestimmen sich nach dem zugrundeliegenden
-          Vertragsverhältnis. Zu den verarbeiteten Daten gehören grundsätzlich
-          Bestands- und Stammdaten der Nutzer:innen (z.B., Name, Adresse, etc.),
-          als auch die Kontaktdaten (z.B., E-Mailadresse, Telefon, etc.), die
-          Vertragsdaten (z.B., in Anspruch genommene Leistungen, erworbene
-          Produkte, Kosten, Namen von Kontaktpersonen) und Zahlungsdaten (z.B.,
-          Bankverbindung, Zahlungshistorie, etc.). Unsere App erfasst besonders
-          sensible medizinische Daten, die dem Schutz der Privatsphäre unserer
-          Nutzer:innen bedürfen. Zweck der Datenerfassung ist die Diagnose von
-          Krankheitsbildern und Rechtsgrundlage ist das bestehende
-          Vertragsverhältnis (Art. 6 Abs. 1 lit. b) DSGVO). Die erfassten
-          medizinischen Daten werden ausschließlich und nur auf Wunsch des:der
-          Nutzer:in ausgewählten Ernährungsberatern oder Fitnesstrainern
-          (künftig: Coaches) zugänglich gemacht und werden sonst nicht an Dritte
-          weitergegeben. Die Coaches erhalten deine Daten zur Erstellung der
-          Ersteinschätzung sowie eines Beratungsplans sowie zur
-          Rechnungserstellung im Rahmen der Abrechnung mit dir. Zahlungsdaten
-          (z.B. Kreditkarten- oder Kontonummer) werden dem jeweiligen Coach
-          dabei nur dann zur Verfügung gestellt, wenn die Zahlungsabwicklung
-          ausnahmsweise nicht direkt über die App erfolgt. Der Coach sowie das
-          behandelnde Personal im Umfeld des Coaches unterliegen der
-          Schweigepflicht. Externe Zahlungsdienstleister Wir setzen externe
-          Zahlungsdienstleister ein, über deren Plattformen die Nutzer:innen und
-          wir Zahlungstransaktionen vornehmen können (z.B., Stripe, PayPal,
-          Google Pay, Apple Pay). Im Rahmen der Erfüllung von Verträgen setzen
-          wir die Zahlungsdienstleister auf Grundlage des Art. 6 Abs. 1 lit. b)
-          DSGVO ein. Im Übrigen setzen wir externe Zahlungsdienstleister auf
-          Grundlage unserer berechtigten Interessen gem. Art. 6 Abs. 1 lit. f)
-          DSGVO ein, um unseren Nutzer:innen eine effektive und sichere
-          Zahlungsmöglichkeit zu bieten. Zu den durch die Zahlungsdienstleister
-          verarbeiteten Daten gehören Bestandsdaten, wie z.B. der Name und die
-          Adresse, Bankdaten, wie z.B. Kontonummern oder Kreditkartennummern,
-          Passwörter, TANs und Prüfsummen sowie die Vertrags-, Summen- und
-          empfängerbezogenen Angaben. Die Angaben sind erforderlich, um die
-          Transaktionen durchzuführen. Die eingegebenen Daten werden jedoch nur
-          durch die Zahlungsdienstleister verarbeitet und bei diesen
-          gespeichert. D. h. wir erhalten keine konto- oder
-          kreditkartenbezogenen Informationen, sondern lediglich Informationen
-          mit Bestätigung oder Negativbeauskunftung der Zahlung. Unter Umständen
-          werden die Daten seitens der Zahlungsdienstleister an
-          Wirtschaftsauskunfteien übermittelt. Diese Übermittlung bezweckt die
-          Identitäts- und Bonitätsprüfung. Hierzu verweisen wir auf die AGB und
-          Datenschutzhinweise der Zahlungsdienstleister. Für die
-          Zahlungsgeschäfte gelten die Geschäftsbedingungen und die
-          Datenschutzhinweise der jeweiligen Zahlungsdienstleister, welche
-          innerhalb der jeweiligen Webseiten, bzw. Transaktionsapplikationen
-          abrufbar sind. Wir verweisen auf diese ebenfalls zwecks weiterer
-          Informationen und Geltendmachung von Widerrufs-, Auskunfts- und
-          anderen Betroffenenrechten. Betriebswirtschaftliche Analysen und
-          Marktforschung Um unser Geschäft wirtschaftlich betreiben und
-          Markttendenzen und Wünsche der Vertragspartner:innen und Nutzer:innen
-          erkennen zu können, analysieren wir die uns vorliegenden Daten zu
-          Geschäftsvorgängen, Verträgen, Anfragen, etc. Wir verarbeiten dabei
-          Bestandsdaten, Kommunikationsdaten, Vertragsdaten, Zahlungsdaten,
-          Nutzungsdaten, Metadaten auf Grundlage des Art. 6 Abs. 1 lit. f)
-          DSGVO, wobei zu den betroffenen Personen Vertragspartner:innen,
-          Interessent:innen, Kund:innen, Besucher:innen und Nutzer:innen unseres
-          Onlineangebotes gehören. Die Analysen erfolgen zum Zweck
-          betriebswirtschaftlicher Auswertungen, des Marketings und der
-          Marktforschung. Dabei können wir die Profile der registrierten
-          Nutzer:innen mit Angaben, z.B. zu deren in Anspruch genommenen
-          Leistungen, berücksichtigen. Die Analysen dienen uns zur Steigerung
-          der Nutzerfreundlichkeit, der Optimierung unseres Angebotes und der
-          Betriebswirtschaftlichkeit. Die Analysen dienen allein uns und werden
-          nicht extern offenbart, sofern es sich nicht um anonyme Analysen mit
-          zusammengefassten Werten handelt. Sofern diese Analysen oder Profile
-          personenbezogen sind, werden sie mit Kündigung der Nutzer:innen
-          gelöscht oder anonymisiert, sonst nach zwei Jahren ab Vertragsschluss.
-          Im Übrigen werden die gesamtbetriebswirtschaftlichen Analysen und
-          allgemeine Tendenzbestimmungen nach Möglichkeit anonym erstellt.
-          Der:Die Nutzer:in erklärt sich damit einverstanden, dass die von
-          ihm:ihr im Rahmen der Nutzung der App bereitgestellten und generierten
-          personenbezogenen Daten von der THE KNOWLEDGE HOUSE GmbH in
-          anonymisierter oder pseudonymisierter Form für wissenschaftliche
-          Zwecke verwendet werden dürfen. Vor der Nutzung zu wissenschaftlichen
-          Zwecken werden die personenbezogenen Daten entweder anonymisiert,
-          sodass eine Identifizierung der betroffenen Person ausgeschlossen ist,
-          oder pseudonymisiert, wobei technische und organisatorische Maßnahmen
-          ergriffen werden, um die Rückführung auf die betroffene Person zu
-          verhindern (vgl. auch § 27 BDSG). Der:Die Nutzer:in kann die
-          Einwilligung zur Nutzung seiner:ihrer personenbezogenen Daten für
-          wissenschaftliche Zwecke jederzeit mit Wirkung für die Zukunft
-          widerrufen. Ein Widerruf berührt nicht die Rechtmäßigkeit der bis zum
-          Zeitpunkt des Widerrufs erfolgten Datenverarbeitung. Die zu
-          wissenschaftlichen Zwecken genutzten Daten werden nicht an Dritte
-          weitergegeben, es sei denn, dies ist gesetzlich vorgeschrieben oder
-          der:die Nutzer:in hat ausdrücklich in die Weitergabe eingewilligt.
-          Kontaktaufnahme Bei der Kontaktaufnahme mit uns (z.B. per
-          Kontaktformular, E-Mail, Telefon oder via sozialer Medien) werden die
-          Angaben des:der Nutzer:in zur Bearbeitung der Kontaktanfrage und deren
-          Abwicklung gem. Art. 6 Abs. 1 lit. b. (im Rahmen
-          vertraglicher-/vorvertraglicher Beziehungen), Art. 6 Abs. 1 lit. f.
-          (andere Anfragen) DSGVO verarbeitet. Die Angaben der Nutzer:innen
-          können in einem Customer-Relationship- Management System (&quot;CRM
-          System&quot;) oder vergleichbaren Anfragenorganisation gespeichert
-          werden. Wir löschen die Anfragen, sofern diese nicht mehr erforderlich
-          sind. Zwingende gesetzliche Bestimmungen - insbesondere
-          Aufbewahrungsfristen - bleiben unberührt. Newsletter Mit den
-          nachfolgenden Hinweisen informieren wir dich über die Inhalte unseres
-          Newsletters sowie das Anmelde-, Versand- und das statistische
-          Auswertungsverfahren sowie deine Widerspruchsrechte. Indem du unseren
-          Newsletter abonnierst, erklärst du dich mit dem Empfang und den
-          beschriebenen Verfahren einverstanden. Inhalt des Newsletters: Wir
-          versenden Newsletter, E-Mails und weitere elektronische
-          Benachrichtigungen mit werblichen Informationen (nachfolgend
-          „Newsletter“) nur mit der Einwilligung der Empfänger:innen oder einer
-          gesetzlichen Erlaubnis. Sofern im Rahmen einer Anmeldung zum
-          Newsletter dessen Inhalte konkret umschrieben werden, sind sie für die
-          Einwilligung der Nutzer:in maßgeblich. Im Übrigen enthalten unsere
-          Newsletter Informationen zu unseren Leistungen und uns. Double-Opt-In
-          und Protokollierung: Die Anmeldung zu unserem Newsletter erfolgt in
-          einem sog. Double- Opt-In-Verfahren. D. h. du erhältst nach der
-          Anmeldung eine E-Mail, in der du um die Bestätigung deiner Anmeldung
-          gebeten wirst. Diese Bestätigung ist notwendig, damit sich niemand mit
-          fremden E- Mailadressen anmelden kann. Die Anmeldungen zum Newsletter
-          werden protokolliert, um den Anmeldeprozess entsprechend den
-          rechtlichen Anforderungen nachweisen zu können. Hierzu gehört die
-          Speicherung des Anmelde- und des Bestätigungszeitpunkts, als auch der
-          IP-Adresse. Ebenso werden die Änderungen deiner bei dem
-          Versanddienstleister gespeicherten Daten protokolliert. Anmeldedaten:
-          Um sich für den Newsletter anzumelden, reicht es aus, wenn du deine
-          E-Mail-Adresse angibst. Optional bitten wir dich, einen Namen zwecks
-          persönlicher Ansprache im Newsletter anzugeben. Der Versand des
-          Newsletters und die mit ihm verbundene Erfolgsmessung erfolgen auf
-          Grundlage einer Einwilligung der Empfänger:innen gem. Art. 6 Abs. 1
-          lit. a), Art. 7 DSGVO i. V. m § 7 Abs. 2 Nr. 3 UWG oder, falls eine
-          Einwilligung nicht erforderlich ist, auf Grundlage unserer
-          berechtigten Interessen am Direktmarketing gem. Art. 6 Abs. 1 lit. f)
-          DSGVO i. V. m. § 7 Abs. 3 UWG. Die Protokollierung des
-          Anmeldeverfahrens erfolgt auf Grundlage unserer berechtigten
-          Interessen gem. Art. 6 Abs. 1 lit. f) DSGVO. Unser Interesse richtet
-          sich auf den Einsatz eines nutzerfreundlichen sowie sicheren
-          Newslettersystems, das sowohl unseren geschäftlichen Interessen dient,
-          als auch den Erwartungen der Nutzer:innen entspricht und uns ferner
-          den Nachweis von Einwilligungen erlaubt. Kündigung/Widerruf: Du kannst
-          den Empfang unseres Newsletters jederzeit kündigen, d. h. deine
-          Einwilligungen widerrufen. Einen Link zur Kündigung des Newsletters
-          findest du am Ende eines jeden Newsletters. Wir können die
-          ausgetragenen E-Mailadressen bis zu drei Jahren auf Grundlage unserer
-          berechtigten Interessen speichern, bevor wir sie löschen, um eine
-          ehemals gegebene Einwilligung nachweisen zu können. Die Verarbeitung
-          dieser Daten wird auf den Zweck einer möglichen Abwehr von Ansprüchen
-          beschränkt. Ein individueller Löschungsantrag ist jederzeit möglich,
-          sofern zugleich das ehemalige Bestehen einer Einwilligung bestätigt
-          wird. Newsletter – Erfolgsmessung Die Newsletter enthalten einen sog.
-          „Web-Beacon“, d. h. eine pixelgroße Datei, die beim Öffnen des
-          Newsletters von unserem Server, bzw. sofern wir einen
-          Versanddienstleister einsetzen, von dessen Server abgerufen wird. Im
-          Rahmen dieses Abrufs werden zunächst technische Informationen, wie
-          Informationen zum Browser und deinem System, als auch deine IP-Adresse
-          und Zeitpunkt des Abrufs erhoben. Diese Informationen werden zur
-          technischen Verbesserung der Services anhand der technischen Daten
-          oder der Zielgruppen und ihres Leseverhaltens anhand derer Abruforte
-          (die mit Hilfe der IP-Adresse bestimmbar sind) oder der Zugriffszeiten
-          genutzt. Zu den statistischen Erhebungen gehört ebenfalls die
-          Feststellung, ob die Newsletter geöffnet werden, wann sie geöffnet
-          werden und welche Links geklickt werden. Diese Informationen können
-          aus technischen Gründen zwar den einzelnen Newsletterempfänger:innen
-          zugeordnet werden. Es ist jedoch weder unser Bestreben noch, sofern
-          eingesetzt, das des Versanddienstleisters, einzelne Nutzer:innen zu
-          beobachten. Die Auswertungen dienen uns viel mehr dazu, die
-          Lesegewohnheiten unserer Nutzer:innen zu erkennen und unsere Inhalte
-          auf sie anzupassen oder unterschiedliche Inhalte entsprechend den
-          Interessen unserer Nutzer:innen zu versenden. Ein getrennter Widerruf
-          der Erfolgsmessung ist leider nicht möglich, in diesem Fall muss das
-          gesamte Newsletterabonnement gekündigt werden. Google Analytics Wir
-          setzen auf Grundlage unserer berechtigten Interessen (d. h. Interesse
-          an der Analyse, Optimierung und wirtschaftlichem Betrieb unseres
-          Onlineangebotes im Sinne des Art. 6 Abs. 1 lit. f) DSGVO) Google
-          Analytics, einen Webanalysedienst der Google LLC („Google“) ein.
-          Google verwendet Cookies. Die durch das Cookie erzeugten Informationen
-          über Benutzung des Onlineangebotes durch die Nutzer:innen werden in
-          der Regel an einen Server von Google in den USA übertragen und dort
-          gespeichert. Mit Google LLC besteht eine Vereinbarung über eine
-          Auftragsverarbeitung und die EU- Standarddatenschutzklauseln
-          (https://policies.google.com/privacy/frameworks?hl=de). Google wird
-          diese Informationen in unserem Auftrag benutzen, um die Nutzung
-          unseres Onlineangebotes durch die Nutzer:innen auszuwerten, um Reports
-          über die Aktivitäten innerhalb dieses Onlineangebotes
-          zusammenzustellen und um weitere, mit der Nutzung dieses
-          Onlineangebotes und der Internetnutzung verbundene Dienstleistungen,
-          uns gegenüber zu erbringen. Dabei können aus den verarbeiteten Daten
-          pseudonyme Nutzungsprofile der Nutzer:innen erstellt werden. Wir
-          setzen Google Analytics in der Ausgestaltung als „Google Analytics 4“
-          ein. Bei Google Analytics 4 ist die Anonymisierung von IP-Adressen
-          standardmäßig aktiviert. Aufgrund der IP-Anonymisierung wird die
-          IP-Adresse der Nutzer:innen von Google innerhalb von Mitgliedstaaten
-          der Europäischen Union oder in anderen Vertragsstaaten des Abkommens
-          über den Europäischen Wirtschaftsraum gekürzt. Nur in Ausnahmefällen
-          wird die volle IP-Adresse an einen Server von Google in den USA
-          übertragen und dort gekürzt. Die von dem Browser des:der Nutzer:in
-          übermittelte IP-Adresse wird nicht mit anderen Daten von Google
-          zusammengeführt. Die Nutzer:innen können die Speicherung der Cookies
-          durch eine entsprechende Einstellung ihrer Browser-Software
-          verhindern; die Nutzer:innen können darüber hinaus die Erfassung der
-          durch das Cookie erzeugten und auf ihre Nutzung des Onlineangebotes
-          bezogenen Daten an Google sowie die Verarbeitung dieser Daten durch
-          Google verhindern, indem sie das unter folgendem Link verfügbare
-          Browser-Plugin herunterladen und installieren:
-          http://tools.google.com/dlpage/gaoptout?hl=de. Weitere Informationen
-          zur Datennutzung durch Google, Einstellungs- und
-          Widerspruchsmöglichkeiten, erfährst du in der Datenschutzerklärung von
-          Google (https://policies.google.com/technologies/ads) sowie in den
-          Einstellungen für die Darstellung von Werbeeinblendungen durch Google
-          (https://adssettings.google.com/authenticated). Die personenbezogenen
-          Daten der Nutzer werden nach 14 Monaten gelöscht oder anonymisiert.
-          Google Adwords und Conversion-Messung Wir nutzen auf Grundlage unserer
-          berechtigten Interessen (d. h. Interesse an der Analyse, Optimierung
-          und wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art.
-          6 Abs. 1 lit. f) DSGVO) die Dienste der Google LLC, 1600 Amphitheatre
-          Parkway, Mountain View, CA 94043, USA, („Google“). Mit Google besteht
-          eine Vereinbarung über eine Auftragsverarbeitung und die EU-
-          Standarddatenschutzklauseln
-          (https://policies.google.com/privacy/frameworks?hl=de). Wir nutzen das
-          Onlinemarketingverfahren Google &quot;Ads&quot;, um Anzeigen im
-          Google-Werbe-Netzwerk zu platzieren (z.B., in Suchergebnissen, in
-          Videos, auf Webseiten, etc.), damit sie Nutzer:innen angezeigt werden,
-          die ein mutmaßliches Interesse an den Anzeigen haben. Dies erlaubt uns
-          Anzeigen für und innerhalb unseres Onlineangebotes gezielter
-          anzuzeigen, um Nutzer:innen nur Anzeigen zu präsentieren, die
-          potentiell deren Interessen entsprechen. Falls einem:einer Nutzer:in
-          z.B. Anzeigen für Produkte angezeigt werden, für die er:sie sich auf
-          anderen Onlineangeboten interessiert hat, spricht man hierbei vom
-          „Remarketing“. Zu diesen Zwecken wird bei Aufruf unserer und anderer
-          Webseiten, auf denen das Google-Werbe-Netzwerk aktiv ist, unmittelbar
-          durch Google ein Code von Google ausgeführt und es werden sog.
-          (Re)marketing-Tags (unsichtbare Grafiken oder Code, auch als „Web
-          Beacons“ bezeichnet) in die Webseite eingebunden. Mit deren Hilfe wird
-          auf dem Gerät der Nutzer:innen ein individuelles Cookie, d. h. eine
-          kleine Datei abgespeichert (statt Cookies können auch vergleichbare
-          Technologien verwendet werden). In dieser Datei wird vermerkt, welche
-          Webseiten der:die Nutzer:in aufgesucht, für welche Inhalte er:sie sich
-          interessiert und welche Angebote er:sie geklickt hat, ferner
-          technische Informationen zum Browser und Betriebssystem, verweisende
-          Webseiten, Besuchszeit sowie weitere Angaben zur Nutzung des
-          Onlineangebotes. Ferner erhalten wir ein individuelles
-          „Conversion-Cookie“. Die mit Hilfe des Cookies eingeholten
-          Informationen dienen Google dazu, Conversion-Statistiken für uns zu
-          erstellen. Wir erfahren jedoch nur die anonyme Gesamtanzahl der
-          Nutzer:innen, die auf unsere Anzeige geklickt haben und zu einer mit
-          einem Conversion-Tracking-Tag versehenen Seite weitergeleitet wurden.
-          Wir erhalten jedoch keine Informationen, mit denen sich Nutzer:innen
-          persönlich identifizieren lassen. Die Daten der Nutzer:innen werden im
-          Rahmen des Google-Werbe-Netzwerks pseudonym verarbeitet. D. h. Google
-          speichert und verarbeitet z.B. nicht den Namen oder E-Mailadresse der
-          Nutzer:innen, sondern verarbeitet die relevanten Daten cookie-bezogen
-          innerhalb pseudonymer Nutzerprofile. D. h. aus der Sicht von Google
-          werden die Anzeigen nicht für eine konkret identifizierte Person
-          verwaltet und angezeigt, sondern für den Cookie-Inhaber, unabhängig
-          davon wer dieser Cookie-Inhaber ist. Dies gilt nicht, wenn ein:e
-          Nutzer:in Google ausdrücklich erlaubt hat, die Daten ohne diese
-          Pseudonymisierung zu verarbeiten. Die über die Nutzer:innen
-          gesammelten Informationen werden an Google übermittelt und auf Googles
-          Servern in den USA gespeichert. Weitere Informationen zur Datennutzung
-          durch Google, Einstellungs- und Widerspruchsmöglichkeiten erfährst du
-          in der Datenschutzerklärung von Google
-          (https://policies.google.com/technologies/ads) sowie in den
-          Einstellungen für die Darstellung von Werbeeinblendungen durch Google
-          (https://adssettings.google.com/authenticated). Facebook-Pixel
-          Innerhalb unseres Onlineangebotes wird aufgrund unserer berechtigten
-          Interessen an Analyse, Optimierung und wirtschaftlichem Betrieb
-          unseres Onlineangebotes und zu diesen Zwecken das sog.
-          „Facebook-Pixel“ des sozialen Netzwerkes Facebook, welches von der
-          Meta Inc., 1 Hacker Way, Menlo Park, CA 94025, USA, bzw. falls
-          Nutzer:innen in der EU ansässig sind, Meta Platforms Ireland Limited,
-          Merrion Road, Dublin 4, D04 X2K5, Irland betrieben wird („Facebook“),
-          eingesetzt. Mit Facebook besteht eine Vereinbarung über eine
-          Auftragsverarbeitung und die EU- Standarddatenschutzklauseln
-          (https://de-de.facebook.com/business/gdpr). Mit Hilfe des
-          Facebook-Pixels ist es Facebook zum einen möglich, die Besucher:innen
-          unseres Onlineangebotes als Zielgruppe für die Darstellung von
-          Anzeigen (sog. &quot;Facebook-Ads&quot;) zu bestimmen. Dementsprechend
-          setzen wir das Facebook-Pixel ein, um die durch uns geschalteten
-          Facebook-Ads nur solchen Facebook-Nutzer:innen anzuzeigen, die auch
-          ein Interesse an unserem Onlineangebot gezeigt haben oder die
-          bestimmte Merkmale (z.B. Interessen an bestimmten Themen oder
-          Produkten, die anhand der besuchten Webseiten bestimmt werden)
-          aufweisen, die wir an Facebook übermitteln (sog. „Custom Audiences“).
-          Mit Hilfe des Facebook-Pixels möchten wir auch sicherstellen, dass
-          unsere Facebook-Ads dem potentiellen Interesse der Nutzer:innen
-          entsprechen und nicht belästigend wirken. Mit Hilfe des
-          Facebook-Pixels können wir ferner die Wirksamkeit der
-          Facebook-Werbeanzeigen für statistische und Marktforschungszwecke
-          nachvollziehen, in dem wir sehen, ob Nutzer:innen nach dem Klick auf
-          eine Facebook-Werbeanzeige auf unsere Website weitergeleitet wurden
-          (sog. „Conversion“). Die Verarbeitung der Daten durch Facebook erfolgt
-          im Rahmen von Facebooks Datenverwendungsrichtlinie. Dementsprechend
-          generelle Hinweise zur Darstellung von Facebook-Ads finden sich in der
-          Datenverwendungsrichtlinie von Facebook:
-          https://www.facebook.com/policy. Spezielle Informationen und Details
-          zum Facebook-Pixel und seiner Funktionsweise erhältst du im
-          Hilfebereich von Facebook:
-          https://www.facebook.com/business/help/651294705016616. Du kannst der
-          Erfassung durch den Facebook-Pixel und Verwendung deiner Daten zur
-          Darstellung von Facebook-Ads widersprechen. Um einzustellen, welche
-          Arten von Werbeanzeigen dir innerhalb von Facebook angezeigt werden,
-          kannst du die von Facebook eingerichtete Seite aufrufen und dort die
-          Hinweise zu den Einstellungen nutzungsbasierter Werbung befolgen:
-          https://www.facebook.com/settings?tab=ads. Die Einstellungen erfolgen
-          plattformunabhängig, d. h. sie werden für alle Geräte, wie
-          Desktopcomputer oder mobile Geräte, übernommen. Du kannst dem Einsatz
-          von Cookies, die der Reichweitenmessung und Werbezwecken dienen,
-          ferner über die Deaktivierungsseite der Netzwerkwerbeinitiative
-          (http://optout.networkadvertising.org/) und zusätzlich die
-          US-amerikanische Webseite (http://www.aboutads.info/choices) oder die
-          europäische Webseite
-          (http://www.youronlinechoices.com/uk/your-ad-choices/) widersprechen.
-          Verwendung von Facebook Plugins Wir nutzen auf Grundlage unserer
-          berechtigten Interessen (d. h. Interesse an der Analyse, Optimierung
-          und wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art.
-          6 Abs. 1 lit. f) DSGVO) Social Plugins („Plugins“) des sozialen
-          Netzwerkes facebook.com, welches von der Facebook Ireland Ltd., 4
-          Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland betrieben
-          wird („Facebook“). Hierzu können z.B. Inhalte wie Bilder, Videos oder
-          Texte und Schaltflächen gehören, mit denen Nutzer:innen Inhalte dieses
-          Onlineangebotes innerhalb von Facebook teilen können. Die Liste und
-          das Aussehen der Facebook Social Plugins kann hier eingesehen werden:
-          https://developers.facebook.com/docs/plugins/. Mit Facebook Inc.
-          Besteht eine Vereinbarung über eine Auftragsverarbeitung und die EU-
-          Standarddatenschutzklauseln
-          (https://de-de.facebook.com/business/gdpr). Wenn ein:e Nutzer:in eine
-          Funktion dieses Onlineangebotes aufruft, die ein solches Plugin
-          enthält, baut sein:ihr Gerät eine direkte Verbindung mit den Servern
-          von Facebook auf. Der Inhalt des Plugins wird von Facebook direkt an
-          das Gerät des:der Nutzer:in übermittelt und von diesem in das
-          Onlineangebot eingebunden. Dabei können aus den verarbeiteten Daten
-          Nutzungsprofile der Nutzer:innen erstellt werden. Wir haben daher
-          keinen Einfluss auf den Umfang der Daten, die Facebook mit Hilfe
-          dieses Plugins erhebt und informiert die Nutzer:innen daher
-          entsprechend unserem Kenntnisstand. Durch die Einbindung der Plugins
-          erhält Facebook die Information, dass ein:e Nutzer:in die
-          entsprechende Seite des Onlineangebotes aufgerufen hat. Ist der:die
-          Nutzer:in bei Facebook eingeloggt, kann Facebook den Besuch
-          seinem:ihrem Facebook-Konto zuordnen. Wenn Nutzer:innen mit den
-          Plugins interagieren, zum Beispiel den Like Button betätigen oder
-          einen Kommentar abgeben, wird die entsprechende Information von
-          seinem:ihrem Gerät direkt an Facebook übermittelt und dort
-          gespeichert. Falls ein:e Nutzer:in kein Mitglied von Facebook ist,
-          besteht trotzdem die Möglichkeit, dass Facebook seine:ihre IP- Adresse
-          in Erfahrung bringt und speichert. Laut Facebook wird in Deutschland
-          nur eine anonymisierte IP- Adresse gespeichert. Zweck und Umfang der
-          Datenerhebung und die weitere Verarbeitung und Nutzung der Daten durch
-          Facebook sowie die diesbezüglichen Rechte und
-          Einstellungsmöglichkeiten zum Schutz der Privatsphäre der Nutzer:innen
-          können diese den Datenschutzhinweisen von Facebook entnehmen:
-          https://www.facebook.com/about/privacy/. Wenn ein:e Nutzer:in
-          Facebookmitglied ist und nicht möchte, dass Facebook über dieses
-          Onlineangebot Daten über ihn:sie sammelt und mit seinen:ihren bei
-          Facebook gespeicherten Mitgliedsdaten verknüpft, muss er:sie sich vor
-          der Nutzung unseres Onlineangebotes bei Facebook ausloggen und
-          seine:ihre Cookies löschen. Weitere Einstellungen und Widersprüche zur
-          Nutzung von Daten für Werbezwecke, sind innerhalb der
-          Facebook-Profileinstellungen möglich:
-          https://www.facebook.com/settings?tab=ads oder über die
-          US-amerikanische Seite http://www.aboutads.info/choices/ oder die
-          EU-Seite http://www.youronlinechoices.com/. Die Einstellungen erfolgen
-          plattformunabhängig, d. h. sie werden für alle Geräte, wie
-          Desktopcomputer oder mobile Geräte übernommen. Einbindung von Diensten
-          und Inhalten Dritter Wir setzen innerhalb unseres Onlineangebotes auf
-          Grundlage unserer berechtigten Interessen (d. h. Interesse an der
-          Analyse, Optimierung und wirtschaftlichem Betrieb unseres
-          Onlineangebotes im Sinne des Art. 6 Abs. 1 lit. f) DSGVO) Inhalts-
-          oder Serviceangebote von Drittanbietern ein, um deren Inhalte und
-          Services, wie z.B. Videos oder Schriftarten einzubinden (nachfolgend
-          einheitlich bezeichnet als „Inhalte“). Dies setzt immer voraus, dass
-          die Drittanbieter dieser Inhalte die IP-Adresse der Nutzer:innen
-          wahrnehmen, da sie ohne die IP-Adresse die Inhalte nicht an deren
-          Browser senden könnten. Die IP- Adresse ist damit für die Darstellung
-          dieser Inhalte erforderlich. Wir bemühen uns, nur solche Inhalte zu
-          verwenden, deren jeweilige Anbieter die IP-Adresse lediglich zur
-          Auslieferung der Inhalte verwenden. Drittanbieter können ferner so
-          genannte Pixel-Tags (unsichtbare Grafiken, auch als „Web Beacons“
-          bezeichnet) für statistische oder Marketingzwecke verwenden. Durch die
-          „Pixel-Tags“ können Informationen wie der Besucherverkehr auf den
-          Seiten dieser Website ausgewertet werden. Die pseudonymen
-          Informationen können ferner in Cookies auf dem Gerät der Nutzer:innen
-          gespeichert werden und unter anderem technische Informationen zum
-          Browser und Betriebssystem, verweisende Webseiten, Besuchszeit sowie
-          weitere Angaben zur Nutzung unseres Onlineangebotes enthalten, als
-          auch mit solchen Informationen aus anderen Quellen verbunden werden.
-          Datenverarbeitung durch soziale Netzwerke Wir unterhalten öffentlich
-          zugängliche Profile in sozialen Netzwerken. Die im Einzelnen von uns
-          genutzten sozialen Netzwerke findest du weiter unten. Unsere
-          Social-Media-Auftritte sollen eine möglichst umfassende Präsenz im
-          Internet gewährleisten. Hierbei handelt es sich um ein berechtigtes
-          Interesse im Sinne von Art. 6 Abs. 1 lit. f) DSGVO. Die von den
-          sozialen Netzwerken initiierten Analyseprozesse beruhen ggf. auf
-          abweichenden Rechtsgrundlagen, die von den Betreibern der sozialen
-          Netzwerke anzugeben sind (z.B. Einwilligung im Sinne des Art. 6 Abs. 1
-          lit. a) DSGVO). Soziale Netzwerke wie Facebook, Twitter etc. können
-          dein Nutzerverhalten in der Regel umfassend analysieren, wenn du deren
-          Website oder eine Website mit integrierten Social-Media-Inhalten (z.B.
-          Like- Buttons oder Werbebannern) besuchst. Durch den Besuch unserer
-          Social-Media-Präsenzen werden zahlreiche datenschutzrelevante
-          Verarbeitungsvorgänge ausgelöst. Im Einzelnen: Wenn du in deinem
-          Social-Media-Account eingeloggt bist und unsere Social-Media-Präsenz
-          besuchst, kann der:die Betreiber:in des Social-Media-Portals diesen
-          Besuch deinem Benutzerkonto zuordnen. Deine personenbezogenen Daten
-          können unter Umständen aber auch dann erfasst werden, wenn du nicht
-          eingeloggt bist oder keinen Account beim jeweiligen
-          Social-Media-Portal besitzt. Diese Datenerfassung erfolgt in diesem
-          Fall beispielsweise über Cookies, die auf deinem Endgerät gespeichert
-          werden oder durch Erfassung deiner IP-Adresse. Mit Hilfe der so
-          erfassten Daten können die Betreiber:innen der Social-Media-Portale
-          Nutzerprofile erstellen, in denen deine Präferenzen und Interessen
-          hinterlegt sind. Auf diese Weise kann dir interessenbezogene Werbung
-          in- und außerhalb der jeweiligen Social-Media-Präsenz angezeigt
-          werden. Sofern du über einen Account beim jeweiligen sozialen Netzwerk
-          verfügst, kann die interessenbezogene Werbung auf allen Geräten
-          angezeigt werden, auf denen du eingeloggt bist oder eingeloggt warst.
-          Bitte beachte außerdem, dass wir nicht alle Verarbeitungsprozesse auf
-          den Social-Media-Portalen nachvollziehen können. Je nach Anbieter:in
-          können daher ggf. weitere Verarbeitungsvorgänge von den
-          Betreiber:innen der Social-Media-Portale durchgeführt werden. Details
-          hierzu entnimmst du den Nutzungsbedingungen und
-          Datenschutzbestimmungen der jeweiligen Social-Media-Portale.
-          Verantwortlichkeit und Geltendmachung von Rechten Wenn du einen
-          unserer Social-Media-Auftritte (z.B. Facebook) besuchst, sind wir
-          gemeinsam mit dem:der Betreiber:in der Social-Media-Plattform für die
-          bei diesem Besuch ausgelösten Datenverarbeitungsvorgänge
-          verantwortlich. Du kannst deine Rechte (Auskunft, Berichtigung,
-          Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und
-          Beschwerde) grundsätzlich sowohl ggü. uns als auch ggü. dem Betreiber
-          des jeweiligen Social-Media-Portals (z.B. ggü. Facebook) geltend
-          machen. Bitte beachte, dass wir trotz der gemeinsamen
-          Verantwortlichkeit mit den Social-Media-Portal-Betreibern nicht
-          vollumfänglich Einfluss auf die Datenverarbeitungsvorgänge der
-          Social-Media-Portale haben. Unsere Möglichkeiten richten sich
-          maßgeblich nach der Unternehmenspolitik der jeweiligen Anbieter:innen.
-          * * * * * * *
+        <div className="prose prose-lg max-w-none text-font-primary">
+          {blocks.map((block, index) => {
+            if (block.kind === "h2") {
+              return (
+                <h2 key={index} className="mt-10 mb-4">
+                  {block.text}
+                </h2>
+              );
+            }
+            if (block.kind === "h3") {
+              return (
+                <h3 key={index} className="mt-8 mb-3">
+                  {block.text}
+                </h3>
+              );
+            }
+            if (block.kind === "ul") {
+              return (
+                <ul key={index} className="list-disc pl-6 space-y-1 my-4">
+                  {block.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>
+                      <RichText text={item} />
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
+            return (
+              <p key={index} className="my-4">
+                <RichText text={block.text} />
+              </p>
+            );
+          })}
         </div>
       </section>
     </main>

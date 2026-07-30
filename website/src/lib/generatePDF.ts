@@ -488,7 +488,7 @@ export async function generateSurveyPDF(
   doc.setFontSize(8);
   doc.setFont(fontFamily, "italic");
   doc.text(
-    "Erstellt mit Scalable Longevity - www.scalable-longevity.com",
+    "Erstellt mit AgePilot - www.scalable-longevity.com",
     pageWidth / 2,
     finalY,
     { align: "center" }
